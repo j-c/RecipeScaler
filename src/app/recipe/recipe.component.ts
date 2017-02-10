@@ -32,7 +32,8 @@ export class RecipeComponent implements OnInit {
 
   constructor(
     public location: Location,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) { 
     this.recipe = recipe;
 
@@ -75,10 +76,8 @@ export class RecipeComponent implements OnInit {
   }
 
   generateUrlForRecipe(recipe: Recipe): string {
-    var path = window.location.pathname;
-    var splitPath = path.split('/');
-    splitPath.pop() // Drop the last element (where the recipe is)
-    var routePath = splitPath.join('/');
+    var path = this.router.url;
+    var routePath = path.slice(0, path.indexOf('/r') + 2);
     return `${window.location.origin}${routePath}/${btoa(JSON.stringify(recipe))}`;
   }
 
