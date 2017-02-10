@@ -76,7 +76,7 @@ export class RecipeComponent implements OnInit {
   }
 
   generateUrlForRecipe(recipe: Recipe): string {
-    var path = this.router.url;
+    var path = window.location.pathname;
     var routePath = path.slice(0, path.indexOf('/r') + 2);
     return `${window.location.origin}${routePath}/${btoa(JSON.stringify(recipe))}`;
   }
