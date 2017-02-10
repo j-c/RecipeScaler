@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+/* @import '~@angular/material/core/theming/prebuilt/deeppurple-amber.css'; */
+/*
+@import '~bootstrap-material-design/dist/css/bootstrap-material-design.css';
+@import '~bootstrap-material-design/dist/css/ripples.min.css';
+*/
+
+.ingredient-list-item {
+    padding: 6px 0;
+}

@@ -7,13 +7,11 @@ import { MaterialModule } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { RecipeComponent } from './recipe/recipe.component';
-import { RecipeIngredientComponent } from './recipe-ingredient/recipe-ingredient.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    RecipeComponent,
-    RecipeIngredientComponent
+    RecipeComponent
   ],
   imports: [
     BrowserModule,

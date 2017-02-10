@@ -3,8 +3,20 @@ import { IRecipeIngredient } from '../models/irecipe-ingredient'
 import { RecipeIngredientViewModel } from './recipe-ingredient-view-model';
 
 export class RecipeViewModel {
-    name: string;
-    
+    private _nameId: string;
+    get nameId(): string {
+        return this._nameId;
+    };
+
+    private _name: string;
+    get name(): string {
+        return this._name;
+    };
+    set name(name: string) {
+        this._name = name;
+        this._nameId = name.toLowerCase().replace(/[^a-z]/g, '');
+    }
+
     description?: string;
 
     recipeNumberOfServes?: number;
@@ -13,8 +25,6 @@ export class RecipeViewModel {
 
     ingredients: RecipeIngredientViewModel[];
     
-    ingredientToScaleByIndex?: number = 0;
-
     constructor(recipe: Recipe) {
         this.name = recipe.name;
         this.description = recipe.description;

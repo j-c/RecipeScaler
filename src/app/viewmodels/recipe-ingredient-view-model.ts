@@ -12,13 +12,10 @@ export class RecipeIngredientViewModel {
     unitOfMeasure: string;
 
     scaling: number;
+    scaledMeasure: number;
 
     private baseIngredientMeasure: number;
     private isBaseIngredient: boolean;
-
-    get scaledMeasure(): number {
-        return this.isBaseIngredient ? this.measure : (this.baseIngredientMeasure * this.scaling);
-    };
 
     constructor (recipeIngredient: IRecipeIngredient, baseIngredient?: MeasuredRecipeIngredient) {
         this.name = recipeIngredient.name;
@@ -31,6 +28,7 @@ export class RecipeIngredientViewModel {
         if (measuredIngredient = recipeIngredient as MeasuredRecipeIngredient) {
             this.measure = measuredIngredient.measure;
             this.unitOfMeasure = measuredIngredient.unitOfMeasure;
+            this.scaledMeasure = this.measure;
 
             // Populate properties with respect to base ingredient
             if (baseIngredient) {
@@ -43,10 +41,12 @@ export class RecipeIngredientViewModel {
             this.scaling = scaledIngredient.scaling;
 
             // Populate properties with respect to base ingredient
-            if (baseIngredient) {
-                this.unitOfMeasure = baseIngredient.unitOfMeasure;
-                this.measure = baseIngredient.measure * this.scaling;
+            if (!baseIngredient) {
+                throw "No base ingredient needed when using ScaledRecipeIngredient";
             }
+            this.unitOfMeasure = baseIngredient.unitOfMeasure;
+            this.measure = baseIngredient.measure * this.scaling;
+            this.scaledMeasure = this.measure;
         } else {
             throw "Unknown recipe ingredient type"
         }
