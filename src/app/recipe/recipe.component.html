@@ -1,9 +1,6 @@
-<h1>Recipe scaler</h1>
-<div class="panel panel-default">
-  <div class="panel-heading">
-    <h3 class="panel-title">{{ recipeViewModel.name }}</h3>
-  </div>
+<h1>{{ recipeViewModel.name }}</h1>
 
+<div class="panel panel-default">
   <div class="panel-body">
     
     <h4>Ingredients</h4>
@@ -34,7 +31,7 @@
                 (ngModelChange)="updateScaledValues(ingredient)"
                 min="0"
                 />
-              <span class="input-group-addon">{{ ingredient.unitOfMeasure }}</span>
+              <span class="input-group-addon" *ngIf="ingredient.unitOfMeasure && ingredient.unitOfMeasure.length > 0">{{ ingredient.unitOfMeasure }}</span>
             </div>
           </td>
           <td>
@@ -54,40 +51,65 @@
             </div>
           </td>
         </tr>
+        <tr *ngIf="recipeViewModel.recipeNumberOfServes > 0">
+          <td>
+            <div class="input-group">
+              <input
+                type="number"
+                class="form-control"
+                [(ngModel)]="recipeViewModel.desiredNumberOfServes"
+                (ngModelChange)="updateServes(recipeViewModel.desiredNumberOfServes)"
+                min="0"
+                />  
+              <span class="input-group-addon">serves</span>
+            </div>
+          </td>
+          <td></td>
+          <td>
+            <div class="ingredient-list-item">
+              {{ recipeViewModel.recipeNumberOfServes }} serves
+            </div>
+          </td>
+          <td></td>
       </tbody>
     </table>
-
-    <div *ngIf="recipeViewModel.recipeNumberOfServes > 0" class="form-inline">
-      <div class="form-group">
-          <label for="{{ recipeViewModel.nameId }}-serves">Serves:</label>
-          <input
-            id="{{ recipeViewModel.nameId }}-serves"
-            type="number"
-            class="form-control"
-            [(ngModel)]="recipeViewModel.desiredNumberOfServes"
-            (ngModelChange)="updateServes(recipeViewModel.desiredNumberOfServes)"
-            min="0"
-            />
-      </div>
-    </div>
 
     <div [hidden]="!recipeViewModel.description || recipeViewModel.description.length == 0">
       <hr />
       <h4>Description</h4>
       <div [innerHTML]="recipeViewModel.description"></div>
     </div>
-
   </div>
 
   <div class="panel-footer">
-    <pre>{{ location | json }}</pre>
-    <pre>{{ location._platformStrategy._platformLocation._location.origin }}</pre>
-    <pre>{{ location.prepareExternalUrl(location.path()) }}</pre>
+    <div class="form-inline">
+      <div class="pull-left">
+        <div class="input-group">
+          <div class="input-group-addon">
+            <span class="glyphicon glyphicon-link" title="Url to this recipe"></span>
+          </div>
+          <input
+            class="form-control"
+            type="text"
+            [ngModel]="generateUrlForRecipe(recipe)"
+            onfocus="this.select();"
+            readonly />
+        </div>
+      </div>
+
+      <div class="pull-right">
+        <button class="btn btn-primary" (click)="editRecipe(recipe)" *ngIf="!editMode">
+            <span class="glyphicon glyphicon-pencil"></span> Edit recipe
+        </button>
+        
+        <button class="btn btn-success" (click)="saveRecipe()" *ngIf="editMode">
+            <span class="glyphicon glyphicon-ok"></span> Done
+        </button>
+      </div>
+    </div>
+    <div class="clearfix"></div>
+    <textarea *ngIf="editMode" class="form-control" (blur)="recipeJson = $event.target.value" rows="20">{{ recipe | json }}</textarea>
   </div>
 </div>
-
-
-
-
 
 

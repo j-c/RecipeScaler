@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Recipe } from '../models/recipe';
 import { MeasuredRecipeIngredient } from '../models/measured-recipe-ingredient';
@@ -8,16 +9,51 @@ import { RecipeIngredientViewModel } from '../viewmodels/recipe-ingredient-view-
 
 @Component({
   selector: 'app-recipe',
-   providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   templateUrl: './recipe.component.html',
   styleUrls: ['./recipe.component.css']
 })
 export class RecipeComponent implements OnInit {
 
-  recipeViewModel: RecipeViewModel;
-
-  constructor(public location: Location) { 
+  private _recipe: Recipe;
+  get recipe(): Recipe {
+    return this._recipe;
+  }
+  set recipe(recipe: Recipe) {
+    this._recipe = recipe;
     this.recipeViewModel = new RecipeViewModel(recipe);
+  }
+
+  recipeViewModel: RecipeViewModel;
+  
+  recipeJson: string;
+
+  editMode: boolean = false;
+
+  constructor(
+    public location: Location,
+    private route: ActivatedRoute
+  ) { 
+    this.recipe = recipe;
+
+    this.generateUrlForRecipe(recipe);
+  }
+
+  ngOnInit() {
+    try {
+      var base64Recipe: string = this.route.snapshot.params['base64recipe'];
+      if (base64Recipe && base64Recipe.length > 0) {
+        var parsedRecipe = JSON.parse(atob(base64Recipe));
+        this.recipe = parsedRecipe;
+        console.log("Recipe successfuly parsed from route param.");
+      } else {
+        console.log("No recipe in route param.");
+      }
+    }
+    catch (ex) {
+      console.error("Could not parse recipe in route param.");
+      //this.recipe = new Recipe();
+    }
   }
 
   updateScaledValues(ingredient: RecipeIngredientViewModel): void {
@@ -38,36 +74,59 @@ export class RecipeComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
+  generateUrlForRecipe(recipe: Recipe): string {
+    return `${window.location.origin}/r/${btoa(JSON.stringify(recipe))}`;
   }
 
+  editRecipe(recipe: Recipe): void {
+    this.editMode = true;
+  }
+
+  saveRecipe(): void {
+    this.editMode = false;
+    try {
+      if (this.recipeJson && this.recipeJson.length > 0) {
+        this.recipe = JSON.parse(this.recipeJson);
+      }
+    }
+    catch (ex) {
+      console.error(ex);
+      window.alert("Error in Recipe JSON.");
+    }
+  }
 }
 
-// DEV:
+// Default:
 var baseIngredient: MeasuredRecipeIngredient = {
-    name: "base ingredient",
-    description: "ingredient description",
-    measure: 100,
-    unitOfMeasure: "g"
-};
-
-var secondIngredient: MeasuredRecipeIngredient = {
-    name: "second ingredient",
-    description: "ingredient description",
-    measure: 50,
+    name: "Rittenhouse Rye whiskey",
+    description: "50% ABV",
+    measure: 120,
     unitOfMeasure: "ml"
 };
-
-var thirdIngredient: MeasuredRecipeIngredient = {
-    name: "third ingredient",
-    measure: 70,
+var additionalIngredients = [];
+additionalIngredients.push({
+    name: "Carpano Antica Formula vermouth",
+    description: "16.5% ABV",
+    measure: 53,
     unitOfMeasure: "ml"
-};
+});
+additionalIngredients.push({
+    name: "Angostura bitters",
+    measure: 4,
+    unitOfMeasure: "dashes"
+});
+additionalIngredients.push({
+    name: "Brandied cherries or orange twists",
+    measure: 2,
+    unitOfMeasure: ""
+});
 
 var recipe: Recipe = {
-  name: "Test recipe",
-  description: "<p>dadadad <strong>aaaa</strong> asdsada</p><script>alert(1);</script><ol><li>123</li></ol>",
+  name: "Manhattans for two",
+  description: "<p>Shake with ice and serve in a chilled coupe glass.</p><p>From Liquid Intelligence by Dave Arnold</p>",
   baseIngredient: baseIngredient,
-  additionalIngredients: [secondIngredient, thirdIngredient],
-  numberOfServes: 10
+  additionalIngredients: additionalIngredients,
+  numberOfServes: 2
 };
+
+var base64 = "eyJuYW1lIjoiTWFuaGF0dGFucyBmb3IgdHdvIiwiZGVzY3JpcHRpb24iOiI8cD5TaGFrZSB3aXRoIGljZSBhbmQgc2VydmUgaW4gYSBjaGlsbGVkIGNvdXBlIGdsYXNzLjwvcD48cD5Gcm9tIExpcXVpZCBJbnRlbGxpZ2VuY2UgYnkgRGF2ZSBBcm5vbGQ8L3A+IiwiYmFzZUluZ3JlZGllbnQiOnsibmFtZSI6IlJpdHRlbmhvdXNlIFJ5ZSB3aGlza2V5IiwiZGVzY3JpcHRpb24iOiI1MCUgQUJWIiwibWVhc3VyZSI6MTIwLCJ1bml0T2ZNZWFzdXJlIjoibWwifSwiYWRkaXRpb25hbEluZ3JlZGllbnRzIjpbeyJuYW1lIjoiQ2FycGFubyBBbnRpY2EgRm9ybXVsYSB2ZXJtb3V0aCIsImRlc2NyaXB0aW9uIjoiMTYuNSUgQUJWIiwibWVhc3VyZSI6NTMsInVuaXRPZk1lYXN1cmUiOiJtbCJ9LHsibmFtZSI6IkFuZ29zdHVyYSBiaXR0ZXJzIiwibWVhc3VyZSI6NCwidW5pdE9mTWVhc3VyZSI6ImRhc2hlcyJ9LHsibmFtZSI6IkJyYW5kaWVkIGNoZXJyaWVzIG9yIG9yYW5nZSB0d2lzdHMiLCJtZWFzdXJlIjoyLCJ1bml0T2ZNZWFzdXJlIjoiIn1dLCJudW1iZXJPZlNlcnZlcyI6Mn0=";
