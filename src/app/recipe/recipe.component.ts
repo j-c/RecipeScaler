@@ -78,7 +78,7 @@ export class RecipeComponent implements OnInit {
   generateUrlForRecipe(recipe: Recipe): string {
     var path = window.location.pathname;
     var routePath = path.slice(0, path.indexOf('/r') + 2);
-    return `${window.location.origin}${routePath}/${btoa(JSON.stringify(recipe))}`;
+    return `${window.location.origin}${routePath}/${RecipeComponent.encodeRecipe(recipe)}`;
   }
 
   editRecipe(recipe: Recipe): void {
@@ -89,13 +89,22 @@ export class RecipeComponent implements OnInit {
     this.editMode = false;
     try {
       if (this.recipeJson && this.recipeJson.length > 0) {
-        this.recipe = JSON.parse(this.recipeJson);
+        let newRecipe: Recipe = JSON.parse(this.recipeJson);
+        this.navigateToRecipe(newRecipe);
       }
     }
     catch (ex) {
       console.error(ex);
       window.alert("Error in Recipe JSON.");
     }
+  }
+
+  navigateToRecipe(recipe: Recipe): void {
+    this.router.navigate(['/r', RecipeComponent.encodeRecipe(recipe)]);
+  }
+
+  static encodeRecipe(recipe: Recipe):string {
+    return btoa(JSON.stringify(recipe));
   }
 }
 
