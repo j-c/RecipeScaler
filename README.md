@@ -1,6 +1,6 @@
 # Recipe Scaler
 
-Simple javascript recipe scaling tool
+Simple javascript recipe scaling tool. Made because I'm too lazy to manage a bunch of spreadsheets for my faviourite recipes.
 
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.28.3.
 
