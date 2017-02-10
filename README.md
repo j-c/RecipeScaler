@@ -1,2 +1,3 @@
-# RecipeScaler
-Simple recipe scaling tool
+# Recipe Scaler
+
+Simple javascript recipe scaling tool
