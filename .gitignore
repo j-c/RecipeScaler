@@ -1,8 +1,4 @@
-# Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
-
-# compiled output
-/dist
+# Temp data
 /tmp
 
 # Logs
