@@ -1,0 +1,19 @@
+<p>
+  recipe works!
+</p>
+
+<div>
+  {{ recipeViewModel.name }}
+</div>
+<div>
+  {{ recipeViewModel.description }}
+</div>
+
+<div>
+  Ingredients
+  <ul>
+    <li *ngFor="let ingredient of recipeViewModel.ingredients">
+        <app-recipe-ingredient [ingredient]="ingredient"></app-recipe-ingredient>
+    </li>
+  </ul>
+</div>
