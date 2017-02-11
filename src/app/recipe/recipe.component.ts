@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { Recipe } from '../models/recipe';
 import { MeasuredRecipeIngredient } from '../models/measured-recipe-ingredient';
@@ -33,7 +34,8 @@ export class RecipeComponent implements OnInit {
   constructor(
     public location: Location,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private title: Title
   ) { 
     // nothing
   }
@@ -45,6 +47,7 @@ export class RecipeComponent implements OnInit {
         if (base64Recipe && base64Recipe.length > 0) {
           var parsedRecipe = RecipeComponent.decodeRecipe(base64Recipe);
           this.recipe = parsedRecipe;
+          this.title.setTitle(`${this.recipe.name} - Recipe Scaler`);
           console.log("Recipe successfuly parsed from route param.");
         } else {
           console.log("No recipe in route param, using default.");

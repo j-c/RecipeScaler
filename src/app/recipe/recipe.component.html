@@ -112,4 +112,17 @@
       <textarea *ngIf="editMode" class="form-control" (blur)="recipeJson = $event.target.value" rows="20">{{ recipe | json }}</textarea>
     </div>
   </div>
+
+  <div style="width: 200px">
+    <share-buttons
+      [url]="generateUrlForRecipe(recipe)"
+      [twitter]="false"
+      [pinterest]="false"
+      [linkedIn]="false"
+      [tumblr]="false"
+      [reddit]="false"
+      [stumbleUpOn]="false"
+    ></share-buttons>
+  </div>
 </div>
+
