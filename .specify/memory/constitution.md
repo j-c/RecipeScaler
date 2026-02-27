@@ -1,18 +1,16 @@
 <!--
   Sync Impact Report
   ═══════════════════
-  Version change: 1.1.0 → 1.2.0
-  Modified principles:
-    - IV. Incremental Modernisation → IV. Pragmatic Modernisation
-      (relaxed: large leaps tolerated when they simplify the
-       process or reach the destination faster; codebase is tiny
-       so risk of big jumps is low)
+  Version change: 1.2.0 → 1.2.1
+  Modified principles: none (clarification only)
+  Clarifications:
+    - Technology Stack: "current LTS" → "current latest stable"
+      to match the explicit user decision (Angular 21 latest
+      stable, not LTS). Also clarified Principle III/IV
+      rationale references from "LTS" to "latest stable".
   Added sections: N/A
   Removed sections: N/A
-  Templates requiring updates:
-    - .specify/templates/plan-template.md ✅ reviewed (no changes needed)
-    - .specify/templates/spec-template.md ✅ reviewed (no changes needed)
-    - .specify/templates/tasks-template.md ✅ reviewed (no changes needed)
+  Templates requiring updates: none
   Follow-up TODOs: none
 -->
 
@@ -76,8 +74,8 @@ code into a fresh Angular CLI project):
 - The default recipe MUST render and the scaling interaction MUST
   work after every change.
 
-**Rationale**: The gap between Angular v2 and current LTS is
-large. Allowing temporary breakage during the initial port keeps
+**Rationale**: The gap between Angular v2 and current latest stable
+is large. Allowing temporary breakage during the initial port keeps
 the migration approach simple and avoids convoluted multi-step
 upgrade sequences. Once the app is running on modern tooling,
 strict buildability resumes.
@@ -88,7 +86,7 @@ The codebase is tiny. Choose whichever upgrade path gets to a
 working, modern result fastest—even if that means skipping
 intermediate versions or porting into a brand-new project.
 
-- Large version leaps (e.g. Angular v2 → current LTS in one move)
+- Large version leaps (e.g. Angular v2 → latest stable in one move)
   are acceptable when the codebase is small enough that the whole
   app can be re-verified quickly.
 - Incremental steps are fine too; pick the approach that minimises
@@ -116,7 +114,7 @@ it saves. Focus test investment on the logic that matters.
 
 ## Technology Stack & Constraints
 
-- **Framework**: Angular (upgrading from v2 → current LTS).
+- **Framework**: Angular (upgrading from v2 → current latest stable).
 - **Language**: TypeScript (current stable).
 - **Styling**: CSS (currently uses Bootstrap Material Design;
   may be replaced during modernisation).
@@ -157,4 +155,4 @@ back to these principles.
   MUST be checked against these principles before implementation
   begins.
 
-**Version**: 1.2.0 | **Ratified**: 2026-02-27 | **Last Amended**: 2026-02-27
+**Version**: 1.2.1 | **Ratified**: 2026-02-27 | **Last Amended**: 2026-02-27
