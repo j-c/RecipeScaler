@@ -80,11 +80,11 @@
 
 ### Sub-phase 2c: Angular 5 → 6 (Config Migration + RxJS 6)
 
-- [ ] T013 [US1] Run `ng update @angular/cli@6 @angular/core@6` — `ng update` **automatically** converts `angular-cli.json` → `angular.json`
-- [ ] T014 [US1] Install `rxjs@6 rxjs-compat@6` in `package.json`
-- [ ] T015 [US1] Run `rxjs-5-to-6-migrate -p src/tsconfig.json` (rewrite import paths in `src/`); review all changes
-- [ ] T016 [US1] Uninstall `ts-helpers` from `package.json` (superseded by `tslib`)
-- [ ] T017 [US1] Commit: `chore: upgrade Angular 5→6; angular-cli.json→angular.json; rxjs 5→6 with compat`
+- [X] T013 [US1] Run `ng update @angular/cli@6 @angular/core@6` — `ng update` **automatically** converts `angular-cli.json` → `angular.json`
+- [X] T014 [US1] Install `rxjs@6 rxjs-compat@6` in `package.json`
+- [X] T015 [US1] Run `rxjs-5-to-6-migrate -p src/tsconfig.json` (rewrite import paths in `src/`); review all changes
+- [X] T016 [US1] Uninstall `ts-helpers` from `package.json` (superseded by `tslib`)
+- [X] T017 [US1] Commit: `chore: upgrade Angular 5→6; angular-cli.json→angular.json; rxjs 5→6 with compat`
 
 **Gate**: `npm install && ng build && ng serve` must pass.
 

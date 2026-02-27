@@ -3,8 +3,6 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes }   from '@angular/router';
 
-import { ShareButtonsModule } from "ng2-sharebuttons"
-
 import { AppComponent } from './app.component';
 import { RecipeComponent } from './recipe/recipe.component';
 
@@ -22,8 +20,7 @@ const appRoutes: Routes = [
   imports: [
     BrowserModule,
     FormsModule,
-    RouterModule.forRoot(appRoutes),
-    ShareButtonsModule
+    RouterModule.forRoot(appRoutes)
   ],
   providers: [],
   bootstrap: [AppComponent]
