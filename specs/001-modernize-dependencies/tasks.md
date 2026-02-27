@@ -189,9 +189,9 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 ### Sub-phase 6b: Angular 16 → 17 (esbuild Application Builder)
 
-- [ ] T052 [US1] Run `ng update @angular/cli@17 @angular/core@17 @angular/material@17 @angular/cdk@17`
-- [ ] T053 [US1] Migrate `angular.json` build target: accept `ng update` offer to switch from `@angular-devkit/build-angular:browser` → `@angular/build:application`
-- [ ] T054 [US1] Commit: `chore: upgrade Angular 16→17; switch to esbuild application builder`
+- [X] T052 [US1] Run `ng update @angular/cli@17 @angular/core@17 @angular/material@17 @angular/cdk@17`
+- [X] T053 [US1] Migrate `angular.json` build target: accept `ng update` offer to switch from `@angular-devkit/build-angular:browser` → `@angular/build:application`
+- [X] T054 [US1] Commit: `chore: upgrade Angular 16→17; switch to esbuild application builder`
 
 ---
 
