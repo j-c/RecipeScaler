@@ -1,0 +1,93 @@
+<div *ngIf="recipeViewModel">
+  <h1>{{ recipeViewModel.name }}</h1>
+
+  <mat-card>
+    <mat-card-content>
+      <h4>Ingredients</h4>
+      <table>
+        <colgroup>
+          <col style="width: 190px" />
+          <col style="width: 110px" />
+          <col style="width: 180px" />
+          <col />
+        </colgroup>
+        <thead>
+          <tr>
+            <th>Scaled</th>
+            <th>Scaling</th>
+            <th>Original measure</th>
+            <th>Ingredient</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ingredient of recipeViewModel.ingredients; let index = index">
+            <td>
+              <mat-form-field>
+                <input
+                  id="{{ recipeViewModel.nameId }}-ingredient-{{ index }}"
+                  matInput
+                  type="number"
+                  [(ngModel)]="ingredient.scaledMeasure"
+                  (ngModelChange)="updateScaledValues(ingredient)"
+                  min="0"
+                />
+              </mat-form-field>
+              <span *ngIf="ingredient.unitOfMeasure && ingredient.unitOfMeasure.length > 0">{{ ingredient.unitOfMeasure }}</span>
+            </td>
+            <td>{{ ingredient.scaling | percent }}</td>
+            <td>{{ ingredient.measure }} {{ ingredient.unitOfMeasure }}</td>
+            <td>
+              <div>{{ ingredient.name }}</div>
+              <div>{{ ingredient.description }}</div>
+            </td>
+          </tr>
+          <tr *ngIf="(recipeViewModel.recipeNumberOfServes || 0) > 0">
+            <td>
+              <mat-form-field>
+                <input
+                  matInput
+                  type="number"
+                  [(ngModel)]="recipeViewModel.desiredNumberOfServes"
+                  (ngModelChange)="updateServes(recipeViewModel.desiredNumberOfServes || 0)"
+                  min="0"
+                />
+              </mat-form-field>
+              <span>serves</span>
+            </td>
+            <td></td>
+            <td>{{ recipeViewModel.recipeNumberOfServes }} serves</td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div [hidden]="!recipeViewModel.description || recipeViewModel.description.length == 0">
+        <hr />
+        <h4>Description</h4>
+        <div [innerHTML]="recipeViewModel.description"></div>
+      </div>
+    </mat-card-content>
+
+    <mat-card-actions>
+      <mat-form-field>
+        <input
+          matInput
+          type="text"
+          [ngModel]="generateUrlForRecipe(recipe)"
+          onfocus="this.select();"
+          readonly
+        />
+      </mat-form-field>
+
+      <button mat-raised-button color="primary" (click)="editRecipe(recipe)" *ngIf="!editMode">
+        Edit recipe
+      </button>
+
+      <button mat-raised-button color="primary" (click)="saveRecipe()" *ngIf="editMode">
+        Done
+      </button>
+
+      <textarea *ngIf="editMode" (blur)="recipeJson = $any($event.target).value" rows="20">{{ recipe | json }}</textarea>
+    </mat-card-actions>
+  </mat-card>
+</div>

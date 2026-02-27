@@ -6,16 +6,16 @@ export class RecipeIngredientViewModel {
     name: string;
     description?: string;
 
-    type: string;
+    type?: string;
 
     measure: number;
-    unitOfMeasure: string;
+    unitOfMeasure?: string;
 
     scaling: number;
     scaledMeasure: number;
 
-    private baseIngredientMeasure: number;
-    private isBaseIngredient: boolean;
+    private baseIngredientMeasure?: number;
+    private isBaseIngredient?: boolean;
 
     constructor (recipeIngredient: IRecipeIngredient, baseIngredient?: MeasuredRecipeIngredient) {
         this.name = recipeIngredient.name;

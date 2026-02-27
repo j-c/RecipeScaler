@@ -30,6 +30,14 @@ coverage
 node_modules
 jspm_packages
 
+# Build outputs
+dist/
+build/
+.angular/
+
+# Environment files
+.env*
+
 # Optional npm cache directory
 .npm
 
@@ -67,3 +75,7 @@ testem.log
 #System Files
 .DS_Store
 Thumbs.db
+
+# Temporary/editor files
+*.tmp
+*.swp
