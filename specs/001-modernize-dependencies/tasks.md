@@ -106,11 +106,11 @@
 
 ### Sub-phase 3c: Angular 8 → 9 (Ivy + @angular/http removed)
 
-- [ ] T022 [US1] Verify `src/app/app.module.ts` has zero remaining `@angular/http` usages (BLOCKER: removed at v9)
-- [ ] T023 [US1] Run `ng update @angular/cli@9 @angular/core@9` (Ivy is now default; fix all Ivy template type errors)
-- [ ] T024 [US1] Update `src/polyfills.ts`: change `import 'zone.js/dist/zone'` → `import 'zone.js'` (import path changed at zone.js 0.14)
-- [ ] T025 [US1] Uninstall `rxjs-compat` from `package.json` (all imports rewritten by T015); audit `package.json` and `src/polyfills.ts` for any explicit `core-js` usages and remove them — Angular 9+ CLI manages polyfills via browserslist automatically (per research.md Decision 10)
-- [ ] T026 [US1] Commit: `chore: upgrade Angular 8→9; remove @angular/http; drop rxjs-compat; remove core-js; Ivy default`
+- [X] T022 [US1] Verify `src/app/app.module.ts` has zero remaining `@angular/http` usages (BLOCKER: removed at v9)
+- [X] T023 [US1] Run `ng update @angular/cli@9 @angular/core@9` (Ivy is now default; fix all Ivy template type errors)
+- [X] T024 [US1] Update `src/polyfills.ts`: change `import 'zone.js/dist/zone'` → `import 'zone.js'` (import path changed at zone.js 0.14)
+- [X] T025 [US1] Uninstall `rxjs-compat` from `package.json` (all imports rewritten by T015); audit `package.json` and `src/polyfills.ts` for any explicit `core-js` usages and remove them — Angular 9+ CLI manages polyfills via browserslist automatically (per research.md Decision 10)
+- [X] T026 [US1] Commit: `chore: upgrade Angular 8→9; remove @angular/http; drop rxjs-compat; remove core-js; Ivy default`
 
 **Gate**: install + build + serve must pass. Node 12+ is now sufficient.
 
