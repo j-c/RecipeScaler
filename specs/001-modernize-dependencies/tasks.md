@@ -92,8 +92,8 @@
 
 ### Sub-phase 3a: Angular 6 → 7
 
-- [ ] T018 [US1] Run `ng update @angular/cli@7 @angular/core@7` (TypeScript 3.1+ required)
-- [ ] T019 [US1] Commit: `chore: upgrade Angular 6→7`
+- [X] T018 [US1] Run `ng update @angular/cli@7 @angular/core@7` (TypeScript 3.1+ required)
+- [X] T019 [US1] Commit: `chore: upgrade Angular 6→7`
 
 ---
 
