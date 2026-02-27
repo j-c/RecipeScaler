@@ -39,6 +39,7 @@
     "@angular-eslint/template-parser": "^18.4.3",
     "@angular/cli": "^18.2.12",
     "@angular/compiler-cli": "^18.2.13",
+    "@playwright/test": "^1.58.2",
     "@types/jasmine": "2.5.38",
     "@types/node": "^6.0.42",
     "@typescript-eslint/eslint-plugin": "4.28.2",
@@ -51,7 +52,6 @@
     "karma-cli": "^1.0.1",
     "karma-jasmine": "^1.0.2",
     "karma-remap-istanbul": "^0.2.1",
-    "protractor": "~4.0.13",
     "ts-node": "1.2.1",
     "typescript": "~5.5.0"
   }

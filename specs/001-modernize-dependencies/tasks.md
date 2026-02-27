@@ -197,8 +197,8 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 ### Sub-phase 6c: Angular 17 → 18
 
-- [ ] T055 [US1] Run `ng update @angular/cli@18 @angular/core@18 @angular/material@18 @angular/cdk@18` (auto-migrates `browserTarget` → `buildTarget` and M2 function names to `m2-` prefix in theming)
-- [ ] T056 [US1] Commit: `chore: upgrade Angular 17→18`
+- [X] T055 [US1] Run `ng update @angular/cli@18 @angular/core@18 @angular/material@18 @angular/cdk@18` (auto-migrates `browserTarget` → `buildTarget` and M2 function names to `m2-` prefix in theming)
+- [X] T056 [US1] Commit: `chore: upgrade Angular 17→18`
 
 **Checkpoint**: Angular is now at v18. The 18→19 hop is deferred — Protractor must be removed first (see Phase 4, T059–T061). Continue to Phase 4 before returning to T069.
 
