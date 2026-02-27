@@ -125,8 +125,8 @@
 
 ### Sub-phase 4b: Angular 10 → 11
 
-- [ ] T029 [US1] Run `ng update @angular/cli@11 @angular/core@11`
-- [ ] T030 [US1] Commit: `chore: upgrade Angular 10→11`
+- [X] T029 [US1] Run `ng update @angular/cli@11 @angular/core@11`
+- [X] T030 [US1] Commit: `chore: upgrade Angular 10→11`
 
 ---
 
