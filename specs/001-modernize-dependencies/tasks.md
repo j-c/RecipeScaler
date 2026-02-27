@@ -32,9 +32,9 @@
 
 **Gate**: No build gate required — this phase records facts, not builds.
 
-- [ ] T001 Add `.nvmrc` containing `22` to the repository root
-- [ ] T002 Add `engines` field (`"node": ">=22.0.0"`) to `package.json`
-- [ ] T003 Commit: `chore: record baseline toolchain (Node version, .nvmrc)`
+- [X] T001 Add `.nvmrc` containing `22` to the repository root
+- [X] T002 Add `engines` field (`"node": ">=22.0.0"`) to `package.json`
+- [X] T003 Commit: `chore: record baseline toolchain (Node version, .nvmrc)`
 
 ---
 
@@ -46,9 +46,9 @@
 
 **Gate**: A written record in `specs/001-modernize-dependencies/research.md` documenting which Node version was used and what the build output was.
 
-- [ ] T004 Switch to an era-appropriate Node version (try Node 8, 10, or 12) via `nvm`; document the version in `specs/001-modernize-dependencies/research.md`
-- [ ] T005 Run `npm install` and `ng build`; record all errors in `specs/001-modernize-dependencies/research.md` under "Upgrade Notes"
-- [ ] T006 Commit: `chore: baseline — document Node compatibility floor`
+- [X] T004 Switch to an era-appropriate Node version (try Node 8, 10, or 12) via `nvm`; document the version in `specs/001-modernize-dependencies/research.md`
+- [X] T005 Run `npm install` and `ng build`; record all errors in `specs/001-modernize-dependencies/research.md` under "Upgrade Notes"
+- [X] T006 Commit: `chore: baseline — document Node compatibility floor`
 
 ---
 
@@ -64,9 +64,9 @@
 
 ### Sub-phase 2a: Angular 2 → 4
 
-- [ ] T007 [US1] Run `ng update @angular/cli@4 @angular/core@4`; fix any template type errors surfaced by stricter checking
-- [ ] T008 [US2] Verify recipe decode/encode round-trip is unchanged (run the recipe URL gate from `quickstart.md`) — requires T007 build to complete first
-- [ ] T009 [US1] Commit: `chore: upgrade Angular 2→4`
+- [X] T007 [US1] Run `ng update @angular/cli@4 @angular/core@4`; fix any template type errors surfaced by stricter checking
+- [X] T008 [US2] Verify recipe decode/encode round-trip is unchanged (run the recipe URL gate from `quickstart.md`) — requires T007 build to complete first
+- [X] T009 [US1] Commit: `chore: upgrade Angular 2→4`
 
 ---
 
