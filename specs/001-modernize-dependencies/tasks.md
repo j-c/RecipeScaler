@@ -132,8 +132,8 @@
 
 ### Sub-phase 4c: Angular 11 → 12 (Webpack 5)
 
-- [ ] T031 [US1] Run `ng update @angular/cli@12 @angular/core@12`
-- [ ] T032 [US1] Commit: `chore: upgrade Angular 11→12`
+- [X] T031 [US1] Run `ng update @angular/cli@12 @angular/core@12`
+- [X] T032 [US1] Commit: `chore: upgrade Angular 11→12`
 
 ---
 
