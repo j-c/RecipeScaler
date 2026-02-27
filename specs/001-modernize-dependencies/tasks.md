@@ -167,14 +167,14 @@
 
 This is the most visually disruptive hop. Angular Material v15 rebuilds all components on MDC — DOM structure and CSS classes change. NFR-001 (loose visual parity) applies; do not attempt pixel-perfect restoration.
 
-- [ ] T042 [US1] Run `ng update @angular/cli@15 @angular/core@15 @angular/material@15 @angular/cdk@15` (runs MDC migration schematics automatically)
-- [ ] T043 [P] [US1] Uninstall `bootstrap-material-design` and `ng2-sharebuttons` from `package.json`
-- [ ] T044 [P] [US1] Remove Bootstrap 3 CDN `<link>` and Font Awesome 4 CDN `<link>` from `src/index.html`
-- [ ] T045 [P] [US1] Remove all `@import '~bootstrap-material-design/...'` lines from `src/styles.css`; apply Angular Material M2 SCSS theme (see plan.md Phase 5b for SCSS snippet)
-- [ ] T046 [P] [US1] Remove `ShareButtonsModule` import and declaration from `src/app/app.module.ts`
-- [ ] T047 [P] [US1] Remove `<share-buttons>` element from `src/app/recipe/recipe.component.html`; replace any remaining Font Awesome icon usages with `<mat-icon>` equivalents
-- [ ] T048 [US2] Verify recipe URL loads, displays correctly, and scaling works after MDC migration; confirm layout intent preserved per NFR-001
-- [ ] T049 [US1] Commit: `chore: upgrade Angular 14→15; MDC material; remove Bootstrap/FontAwesome/sharebuttons`
+- [X] T042 [US1] Run `ng update @angular/cli@15 @angular/core@15 @angular/material@15 @angular/cdk@15` (runs MDC migration schematics automatically)
+- [X] T043 [P] [US1] Uninstall `bootstrap-material-design` and `ng2-sharebuttons` from `package.json`
+- [X] T044 [P] [US1] Remove Bootstrap 3 CDN `<link>` and Font Awesome 4 CDN `<link>` from `src/index.html`
+- [X] T045 [P] [US1] Remove all `@import '~bootstrap-material-design/...'` lines from `src/styles.css`; apply Angular Material M2 SCSS theme (see plan.md Phase 5b for SCSS snippet)
+- [X] T046 [P] [US1] Remove `ShareButtonsModule` import and declaration from `src/app/app.module.ts`
+- [X] T047 [P] [US1] Remove `<share-buttons>` element from `src/app/recipe/recipe.component.html`; replace any remaining Font Awesome icon usages with `<mat-icon>` equivalents
+- [X] T048 [US2] Verify recipe URL loads, displays correctly, and scaling works after MDC migration; confirm layout intent preserved per NFR-001
+- [X] T049 [US1] Commit: `chore: upgrade Angular 14→15; MDC material; remove Bootstrap/FontAwesome/sharebuttons`
 
 **Gate**: install + build + serve + recipe URL visual check.
 

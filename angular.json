@@ -98,7 +98,6 @@
       }
     }
   },
-  "defaultProject": "rs",
   "cli": {
     "defaultCollection": "@angular-eslint/schematics"
   }
