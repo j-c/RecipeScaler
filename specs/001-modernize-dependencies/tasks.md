@@ -139,10 +139,10 @@
 
 ### Sub-phase 4d: TSLint → ESLint (MUST complete before Angular 13)
 
-- [ ] T033 [US1] Run `ng add @angular-eslint/schematics` to scaffold ESLint config
-- [ ] T034 [US1] Run `ng g @angular-eslint/schematics:convert-tslint-to-eslint --remove-tslint-if-no-more-tslint-targets`; review generated `.eslintrc.json`; fix immediate lint errors
-- [ ] T035 [US1] Delete `tslint.json` from repository root
-- [ ] T036 [US1] Commit: `chore: replace tslint/codelyzer with @angular-eslint`
+- [X] T033 [US1] Run `ng add @angular-eslint/schematics` to scaffold ESLint config
+- [X] T034 [US1] Run `ng g @angular-eslint/schematics:convert-tslint-to-eslint --remove-tslint-if-no-more-tslint-targets`; review generated `.eslintrc.json`; fix immediate lint errors
+- [X] T035 [US1] Delete `tslint.json` from repository root
+- [X] T036 [US1] Commit: `chore: replace tslint/codelyzer with @angular-eslint`
 
 ---
 
