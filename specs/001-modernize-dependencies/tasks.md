@@ -268,11 +268,11 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 **Purpose**: Final validation from a clean state, documentation, and the closing commit that satisfies SC-001–SC-008.
 
-- [ ] T079 Run `npm ci` (clean install) followed by full quickstart.md gate sequence: build, serve, recipe URL gate, `ng test`, `npx playwright test`
-- [ ] T080 [P] Update `README.md`: document current Node 22 requirement, `npm ci`, `ng build`, `ng serve`, `ng test`, `npx playwright test` commands, and the base64 recipe URL scheme
-- [ ] T081 [P] Confirm `.nvmrc` contains `22` and `package.json` `engines` field is set to `>=22.0.0`
-- [ ] T082 Record upgrade notes in `specs/001-modernize-dependencies/research.md`: final version matrix, list of all manual steps taken, any known issues discovered
-- [ ] T083 Final commit: `chore: modernize dependencies — Angular 19 LTS; update README`
+- [X] T079 Run `npm ci` (clean install) followed by full quickstart.md gate sequence: build, serve, recipe URL gate, `ng test`, `npx playwright test`
+- [X] T080 [P] Update `README.md`: document current Node 22 requirement, `npm ci`, `ng build`, `ng serve`, `ng test`, `npx playwright test` commands, and the base64 recipe URL scheme
+- [X] T081 [P] Confirm `.nvmrc` contains `22` and `package.json` `engines` field is set to `>=22.0.0`
+- [X] T082 Record upgrade notes in `specs/001-modernize-dependencies/research.md`: final version matrix, list of all manual steps taken, any known issues discovered
+- [X] T083 Final commit: `chore: modernize dependencies — Angular 19 LTS; update README`
 
 ---
 

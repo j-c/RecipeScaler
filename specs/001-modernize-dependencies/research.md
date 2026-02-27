@@ -345,3 +345,54 @@ Angular CLI 1.0.0-beta.28.3 cannot run on Node 22+ (incompatible native
 module APIs). The app must stay on Node 8 until Angular CLI is upgraded
 past its dependency on node-sass and legacy V8 APIs.
 
+---
+
+## Upgrade Completion Notes
+
+**Date**: 2026-02-27
+
+### Final Version Matrix
+
+| Package | Version |
+|---------|---------|
+| Angular (core/common/compiler/forms/router/animations/platform-browser) | 19.2.19 |
+| @angular/cli | 19.2.22 |
+| @angular-devkit/build-angular | 19.2.22 |
+| @angular/material | 19.2.16 |
+| @angular/cdk | 19.2.16 |
+| TypeScript | 5.7.3 |
+| RxJS | 7.8.2 |
+| zone.js | 0.15.1 |
+| tslib | 2.8.x |
+| ESLint | 8.57.x |
+| @angular-eslint | 19.3.0 |
+| @typescript-eslint | 8.x |
+| Node.js (runtime) | 18.20.8 |
+| Vitest | 3.2.4 |
+| Playwright | 1.58.2 |
+
+### Upgrade Path Taken
+
+Angular 2.3.1 → 4 → 5 → 6 → 7 → 8 → 9 (Ivy) → 10 → 11 → 12 → 13 → 14 → 15 → 16 → 17 (esbuild) → 18 → 19
+
+### Key Manual Steps
+
+1. **All hops used manual `npm install`** — `ng update` schematics were broken for every 2-major-version gap due to missing migration paths and package incompatibilities.
+2. **`--legacy-peer-deps` required** from Node 16+ (npm 8+ strict peer dependency enforcement).
+3. **Angular 5→6**: Migrated `angular-cli.json` → `angular.json` manually (workspace config format).
+4. **Angular 9**: Ivy compiler activated automatically.
+5. **Angular 12→13**: TSLint→ESLint via `@angular-eslint/schematics`.
+6. **Angular 14**: Upgraded `@angular/material` from 2.0.0-beta.12 → 14.2.7 (massive API jump).
+7. **Angular 15**: MDC migration; removed Bootstrap 3 + Font Awesome 4 CDN links; created SCSS theme with M2 API (`mat.m2-define-palette`, etc.); replaced glyphicon icons with unicode.
+8. **Angular 17**: Migrated `@angular-devkit/build-angular:browser` → `:application` (esbuild). Build time halved from ~20s → ~10s.
+9. **Angular 18**: M2 theme function renames (`define-palette` → `m2-define-palette`, etc.).
+10. **Angular 19**: Added `standalone: false` to components (Angular 19 defaults standalone to true). Migrated from SCSS M2 theme to prebuilt `indigo-pink.css` (Material 19 no longer ships SCSS sources).
+11. **Protractor → Playwright** (T057-T062): Full replacement with Chromium smoke tests.
+12. **Karma/Jasmine → Vitest** (T063-T070): Full replacement with jsdom-based unit tests (8 tests).
+
+### Known Issues
+
+1. **3 high-severity npm audit vulns**: All in `@angular/cli` → `pacote` → `tar` transitive chain. Dev-only; not shipped to production. Cannot resolve without downgrading CLI to 7.x. Upstream Angular CLI issue.
+2. **Bootstrap 3 CSS classes remain** in templates (panel, form-control, etc.) but are unstyled. This was intentional — functional replacement is out of scope for the dependency modernization spec.
+3. **`ng2-sharebuttons` removed** — social sharing deferred to spec `003-social-sharing`.
+
