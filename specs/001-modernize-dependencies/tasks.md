@@ -72,9 +72,9 @@
 
 ### Sub-phase 2b: Angular 4 → 5
 
-- [ ] T010 [US1] Run `ng update @angular/cli@5 @angular/core@5`
-- [ ] T011 [US1] Migrate `HttpModule` + `Http` → `HttpClientModule` + `HttpClient` in `src/app/app.module.ts` (verify `@angular/http` usages; may be unused — confirm before removing)
-- [ ] T012 [US1] Commit: `chore: upgrade Angular 4→5; migrate @angular/http → HttpClient`
+- [X] T010 [US1] Run `ng update @angular/cli@5 @angular/core@5`
+- [X] T011 [US1] Migrate `HttpModule` + `Http` → `HttpClientModule` + `HttpClient` in `src/app/app.module.ts` (verify `@angular/http` usages; may be unused — confirm before removing)
+- [X] T012 [US1] Commit: `chore: upgrade Angular 4→5; migrate @angular/http → HttpClient`
 
 ---
 
