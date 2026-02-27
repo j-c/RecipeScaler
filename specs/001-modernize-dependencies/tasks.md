@@ -157,9 +157,9 @@
 
 ### Sub-phase 5a: Angular 13 → 14 (Typed Reactive Forms)
 
-- [ ] T039 [US1] Run `ng update @angular/cli@14 @angular/core@14 @angular/material@14 @angular/cdk@14` (TypeScript 4.6+ required)
-- [ ] T040 [US1] Fix any `FormControl<T>` strict typing errors introduced by typed reactive forms
-- [ ] T041 [US1] Commit: `chore: upgrade Angular 13→14`
+- [X] T039 [US1] Run `ng update @angular/cli@14 @angular/core@14 @angular/material@14 @angular/cdk@14` (TypeScript 4.6+ required)
+- [X] T040 [US1] Fix any `FormControl<T>` strict typing errors introduced by typed reactive forms
+- [X] T041 [US1] Commit: `chore: upgrade Angular 13→14`
 
 ---
 

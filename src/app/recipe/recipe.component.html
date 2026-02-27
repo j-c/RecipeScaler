@@ -87,7 +87,7 @@
         <div class="pull-left">
           <div class="input-group">
             <div class="input-group-addon">
-              <span class="glyphicon glyphicon-link" title="Url to this recipe"></span>
+              <span title="Url to this recipe">&#128279;</span>
             </div>
             <input
               class="form-control"
@@ -100,11 +100,11 @@
 
         <div class="pull-right">
           <button class="btn btn-primary" (click)="editRecipe(recipe)" *ngIf="!editMode">
-              <span class="glyphicon glyphicon-pencil"></span> Edit recipe
+              &#9998; Edit recipe
           </button>
           
           <button class="btn btn-success" (click)="saveRecipe()" *ngIf="editMode">
-              <span class="glyphicon glyphicon-ok"></span> Done
+              &#10004; Done
           </button>
         </div>
       </div>
