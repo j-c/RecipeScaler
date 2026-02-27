@@ -182,8 +182,8 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 ### Sub-phase 6a: Angular 15 → 16
 
-- [ ] T050 [US1] Run `ng update @angular/cli@16 @angular/core@16 @angular/material@16 @angular/cdk@16` (TypeScript 5.0+ required)
-- [ ] T051 [US1] Commit: `chore: upgrade Angular 15→16`
+- [X] T050 [US1] Run `ng update @angular/cli@16 @angular/core@16 @angular/material@16 @angular/cdk@16` (TypeScript 5.0+ required)
+- [X] T051 [US1] Commit: `chore: upgrade Angular 15→16`
 
 ---
 
