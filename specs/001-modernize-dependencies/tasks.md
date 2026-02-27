@@ -216,12 +216,12 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 ### Sub-phase 7a: Replace Protractor with Playwright
 
-- [ ] T057 [US3] Uninstall `protractor` from `package.json`; remove the `e2e` target from `angular.json`
-- [ ] T058 [US3] Delete `e2e/` directory and `protractor.conf.js` from repository root
-- [ ] T059 [US3] Run `ng add playwright-ng-schematics` to scaffold `playwright/` directory with Angular-aware configuration
-- [ ] T060 [US3] Write `playwright/smoke.spec.ts`: test (a) app loads at root URL with no console errors; test (b) base64-encoded recipe URL loads and renders the expected recipe name and at least one ingredient (see `contracts/url-scheme.md` for the default recipe URL)
-- [ ] T061 [US3] Run Playwright smoke tests; confirm both pass
-- [ ] T062 [US3] Commit: `chore: replace Protractor with Playwright; add recipe URL smoke test`
+- [X] T057 [US3] Uninstall `protractor` from `package.json`; remove the `e2e` target from `angular.json`
+- [X] T058 [US3] Delete `e2e/` directory and `protractor.conf.js` from repository root
+- [X] T059 [US3] Run `ng add playwright-ng-schematics` to scaffold `playwright/` directory with Angular-aware configuration
+- [X] T060 [US3] Write `playwright/smoke.spec.ts`: test (a) app loads at root URL with no console errors; test (b) base64-encoded recipe URL loads and renders the expected recipe name and at least one ingredient (see `contracts/url-scheme.md` for the default recipe URL)
+- [X] T061 [US3] Run Playwright smoke tests; confirm both pass
+- [X] T062 [US3] Commit: `chore: replace Protractor with Playwright; add recipe URL smoke test`
 
 ---
 
