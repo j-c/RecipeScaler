@@ -148,8 +148,8 @@
 
 ### Sub-phase 4e: Angular 12 → 13 (tslint builder removed)
 
-- [ ] T037 [US1] Run `ng update @angular/cli@13 @angular/core@13` (`tslint` builder is gone; T033–T036 already handled this)
-- [ ] T038 [US1] Commit: `chore: upgrade Angular 12→13`
+- [X] T037 [US1] Run `ng update @angular/cli@13 @angular/core@13` (`tslint` builder is gone; T033–T036 already handled this)
+- [X] T038 [US1] Commit: `chore: upgrade Angular 12→13`
 
 **Gate**: install + build + serve + `ng test` (Karma still present at this point).
 
