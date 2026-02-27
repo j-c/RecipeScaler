@@ -313,3 +313,35 @@ compatibility tables). The following informational unknowns are resolved:
 | TSLint removal version | Angular 13 (migrate at v12→v13 hop) |
 | Angular Material critical stops | v15 (MDC rebuild), v19 (theming overhaul) |
 | Zone.js import path change | 0.14+ (update `polyfills.ts` at v12/v13 hop) |
+
+---
+
+## Upgrade Notes — Baseline (Phase 2)
+
+**Date**: 2026-02-27
+
+### Node Compatibility Floor
+
+- **Minimum buildable Node**: **8.17.0** (npm 6.13.4)
+- `npm install` completes with warnings:
+  - `karma-cli@1.0.1` and `karma@1.2.0` engine field wants Node 0.10–6 but
+    still installs and functions on Node 8.
+  - `@angular/material` resolved to `2.0.0-beta.12` which expects
+    `@angular/cdk@2.0.0-beta.12` and `@angular/core@~4.4.4` — peer dep
+    mismatch with Angular 2.3.1 but npm 6 installs anyway.
+  - `bootstrap-material-design` resolved to v5 (Bootstrap 5) with peer dep
+    on `@popperjs/core` — ignored since this package is removed at v15 hop.
+- `ng build` (via `./node_modules/.bin/ng build`) **succeeds** — produces
+  5 chunks: `polyfills.bundle.js`, `main.bundle.js`, `styles.bundle.js`,
+  `vendor.bundle.js`, `inline.bundle.js`.
+- **One non-blocking error**: `@types/node/index.d.ts (20,1): Invalid 'reference' directive syntax` — the installed `@types/node` version uses a
+  triple-slash directive format that TypeScript 2.0.3 doesn't understand.
+  This does not block the build or runtime.
+- Build time: ~6.3 seconds.
+
+### Confirmed: Does NOT build on Node 22/24
+
+Angular CLI 1.0.0-beta.28.3 cannot run on Node 22+ (incompatible native
+module APIs). The app must stay on Node 8 until Angular CLI is upgraded
+past its dependency on node-sass and legacy V8 APIs.
+
