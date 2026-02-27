@@ -242,9 +242,9 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 > **Prerequisite**: T057 (Protractor removed from `angular.json`) must be complete before this task. The `build-angular:protractor` builder is removed at v19.
 
-- [ ] T071 [US1] Run `ng update @angular/cli@19 @angular/core@19 @angular/material@19 @angular/cdk@19` (auto-migrates Angular Material theming to new `mat.theme()` API; removes `mat.core()`)
-- [ ] T072 [US2] Run the full quickstart.md gate sequence: `npm ci && ng build && ng serve` + navigate to base64 recipe URL and verify recipe name, ingredients, and scaling are correct
-- [ ] T073 [US1] Commit: `chore: upgrade Angular 18→19; mat.theme() theming API`
+- [X] T071 [US1] Run `ng update @angular/cli@19 @angular/core@19 @angular/material@19 @angular/cdk@19` (auto-migrates Angular Material theming to new `mat.theme()` API; removes `mat.core()`)
+- [X] T072 [US2] Run the full quickstart.md gate sequence: `npm ci && ng build && ng serve` + navigate to base64 recipe URL and verify recipe name, ingredients, and scaling are correct
+- [X] T073 [US1] Commit: `chore: upgrade Angular 18→19; mat.theme() theming API`
 
 **Checkpoint**: Angular is now at v19 LTS. US1 and US2 are complete. Playwright smoke tests pass. Vitest unit tests pass.
 
@@ -256,11 +256,11 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 **Independent Test**: Run `npm audit`; run `ng update`; inspect all packages — zero unmaintained or deprecated packages.
 
-- [ ] T074 [US4] Run `npm audit`; resolve all high and critical severity vulnerabilities; record findings
-- [ ] T075 [US4] Run `ng update`; confirm no further Angular package updates are available
-- [ ] T076 [US4] Audit every entry in `package.json` dependencies and devDependencies: flag any package with no release in over 2 years; resolve or justify each
-- [ ] T077 [P] [US4] Create follow-up spec stub at `specs/003-social-sharing/spec.md` with a placeholder noting that `ng2-sharebuttons` was removed and social sharing is deferred (per FR-014)
-- [ ] T078 [US4] Commit: `chore: dependency audit complete; no unmaintained packages`
+- [X] T074 [US4] Run `npm audit`; resolve all high and critical severity vulnerabilities; record findings
+- [X] T075 [US4] Run `ng update`; confirm no further Angular package updates are available
+- [X] T076 [US4] Audit every entry in `package.json` dependencies and devDependencies: flag any package with no release in over 2 years; resolve or justify each
+- [X] T077 [P] [US4] Create follow-up spec stub at `specs/003-social-sharing/spec.md` with a placeholder noting that `ng2-sharebuttons` was removed and social sharing is deferred (per FR-014)
+- [X] T078 [US4] Commit: `chore: dependency audit complete; no unmaintained packages`
 
 ---
 
