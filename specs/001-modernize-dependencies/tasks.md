@@ -99,8 +99,8 @@
 
 ### Sub-phase 3b: Angular 7 → 8
 
-- [ ] T020 [US1] Run `ng update @angular/cli@8 @angular/core@8`
-- [ ] T021 [US1] Commit: `chore: upgrade Angular 7→8`
+- [X] T020 [US1] Run `ng update @angular/cli@8 @angular/core@8`
+- [X] T021 [US1] Commit: `chore: upgrade Angular 7→8`
 
 ---
 
