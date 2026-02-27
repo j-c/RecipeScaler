@@ -227,14 +227,14 @@ This is the most visually disruptive hop. Angular Material v15 rebuilds all comp
 
 ### Sub-phase 7b: Replace Karma/Jasmine with Vitest
 
-- [ ] T063 [US3] Uninstall `karma`, `karma-chrome-launcher`, `karma-jasmine`, `karma-jasmine-html-reporter`, `karma-remap-istanbul`, `karma-cli`, `jasmine-core`, `jasmine-spec-reporter`, `@types/jasmine` from `package.json`
-- [ ] T064 [US3] Install `vitest` and `jsdom` as dev dependencies
-- [ ] T065 [US3] Update `angular.json` test builder to `@angular/build:unit-test` (replacing the Karma builder)
-- [ ] T066 [US3] Run `ng g @schematics/angular:refactor-jasmine-vitest`; review all modified spec files
-- [ ] T067 [US3] Rewrite any `fakeAsync`/`flush` usages in spec files using `async/await` + `vi.useFakeTimers()` as needed
-- [ ] T068 [US3] Delete `karma.conf.js` and `src/test.ts`; verify `src/app/recipe/recipe.component.spec.ts` includes at minimum one test exercising recipe scaling arithmetic (quantity calculation)
-- [ ] T069 [US3] Run `ng test`; confirm all tests pass with zero failures
-- [ ] T070 [US3] Commit: `chore: replace Karma/Jasmine with Vitest`
+- [X] T063 [US3] Uninstall `karma`, `karma-chrome-launcher`, `karma-jasmine`, `karma-jasmine-html-reporter`, `karma-remap-istanbul`, `karma-cli`, `jasmine-core`, `jasmine-spec-reporter`, `@types/jasmine` from `package.json`
+- [X] T064 [US3] Install `vitest` and `jsdom` as dev dependencies
+- [X] T065 [US3] Update `angular.json` test builder to `@angular/build:unit-test` (replacing the Karma builder)
+- [X] T066 [US3] Run `ng g @schematics/angular:refactor-jasmine-vitest`; review all modified spec files
+- [X] T067 [US3] Rewrite any `fakeAsync`/`flush` usages in spec files using `async/await` + `vi.useFakeTimers()` as needed
+- [X] T068 [US3] Delete `karma.conf.js` and `src/test.ts`; verify `src/app/recipe/recipe.component.spec.ts` includes at minimum one test exercising recipe scaling arithmetic (quantity calculation)
+- [X] T069 [US3] Run `ng test`; confirm all tests pass with zero failures
+- [X] T070 [US3] Commit: `chore: replace Karma/Jasmine with Vitest`
 
 ---
 

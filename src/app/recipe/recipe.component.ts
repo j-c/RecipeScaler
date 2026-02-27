@@ -9,6 +9,7 @@ import { RecipeViewModel } from '../viewmodels/recipe-view-model';
 import { RecipeIngredientViewModel } from '../viewmodels/recipe-ingredient-view-model';
 
 @Component({
+  standalone: false,
   selector: 'app-recipe',
   providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
   templateUrl: './recipe.component.html',
