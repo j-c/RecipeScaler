@@ -1,22 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { PercentPipe, JsonPipe } from '@angular/common';
 
 import { Recipe } from '../models/recipe';
-import { MeasuredRecipeIngredient } from '../models/measured-recipe-ingredient';
+import { RecipeIngredient } from '../models/measured-recipe-ingredient';
 import { RecipeViewModel } from '../viewmodels/recipe-view-model';
 import { RecipeIngredientViewModel } from '../viewmodels/recipe-ingredient-view-model';
 
 @Component({
   selector: 'app-recipe',
-  providers: [Location, {provide: LocationStrategy, useClass: PathLocationStrategy}],
+  imports: [FormsModule, PercentPipe, JsonPipe],
   templateUrl: './recipe.component.html',
-  styleUrls: ['./recipe.component.css']
+  styleUrl: './recipe.component.css'
 })
 export class RecipeComponent implements OnInit {
 
-  private _recipe: Recipe;
+  private _recipe!: Recipe;
   get recipe(): Recipe {
     return this._recipe;
   }
@@ -25,73 +26,60 @@ export class RecipeComponent implements OnInit {
     this.recipeViewModel = new RecipeViewModel(recipe);
   }
 
-  recipeViewModel: RecipeViewModel;
-  
-  recipeJson: string;
+  recipeViewModel!: RecipeViewModel;
 
-  editMode: boolean = false;
+  recipeJson = '';
+
+  editMode = false;
 
   constructor(
-    public location: Location,
     private route: ActivatedRoute,
     private router: Router,
     private title: Title
-  ) { 
-    // nothing
-  }
+  ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.route.params.subscribe(params => {
       try {
-        var base64Recipe: string = params['base64recipe'];
+        const base64Recipe: string = params['base64recipe'];
         if (base64Recipe && base64Recipe.length > 0) {
-          var parsedRecipe = RecipeComponent.decodeRecipe(base64Recipe);
+          const parsedRecipe = RecipeComponent.decodeRecipe(base64Recipe);
           this.recipe = parsedRecipe;
           this.title.setTitle(`${this.recipe.name} - Recipe Scaler`);
-          console.log("Recipe successfuly parsed from route param.");
-        } else {
-          console.log("No recipe in route param, using default.");
         }
-      }
-      catch (ex) {
-        console.error("Could not parse recipe in route param, using default.");
+      } catch {
+        console.error('Could not parse recipe from route param, using default.');
       }
 
-      // No recipe, use default
-      if (!this.recipe) {
+      if (!this._recipe) {
         this.navigateToRecipe(RecipeComponent.defaultRecipe);
       }
-    })
+    });
   }
 
   updateScaledValues(ingredient: RecipeIngredientViewModel): void {
-    var scaling = ingredient.scaledMeasure / ingredient.measure;
-    this.recipeViewModel.ingredients.forEach((e, i) => {
-      if (e === ingredient) return; // Do no calculate scaled value for the ingredient that is scaled against
+    const scaling = ingredient.scaledMeasure / ingredient.measure;
+    for (const e of this.recipeViewModel.ingredients) {
+      if (e === ingredient) { continue; }
       e.scaledMeasure = scaling * e.measure;
-    });
+    }
     if (this.recipeViewModel.recipeNumberOfServes > 0) {
       this.recipeViewModel.desiredNumberOfServes = this.recipeViewModel.recipeNumberOfServes * scaling;
     }
   }
 
   updateServes(newServes: number): void {
-    var scaling = newServes / this.recipeViewModel.recipeNumberOfServes;    
-      this.recipeViewModel.ingredients.forEach((e, i) => {
+    const scaling = newServes / this.recipeViewModel.recipeNumberOfServes;
+    for (const e of this.recipeViewModel.ingredients) {
       e.scaledMeasure = scaling * e.measure;
-    });
+    }
   }
 
-  generateUrlForRecipe(recipe: Recipe): string {
-    /*
-    var path = window.location.pathname;
-    var routePath = path.slice(0, path.indexOf('/r') + 2);
-    return `${window.location.origin}${routePath}/${RecipeComponent.encodeRecipe(recipe)}`;
-    */
+  getRecipeUrl(): string {
     return window.location.origin + window.location.pathname;
   }
 
-  editRecipe(recipe: Recipe): void {
+  editRecipe(): void {
     this.editMode = true;
   }
 
@@ -99,13 +87,12 @@ export class RecipeComponent implements OnInit {
     this.editMode = false;
     try {
       if (this.recipeJson && this.recipeJson.length > 0) {
-        let newRecipe: Recipe = JSON.parse(this.recipeJson);
+        const newRecipe: Recipe = JSON.parse(this.recipeJson);
         this.navigateToRecipe(newRecipe);
       }
-    }
-    catch (ex) {
+    } catch (ex) {
       console.error(ex);
-      window.alert("Error in Recipe JSON.");
+      window.alert('Error in Recipe JSON.');
     }
   }
 
@@ -113,7 +100,7 @@ export class RecipeComponent implements OnInit {
     this.router.navigate(['/r', RecipeComponent.encodeRecipe(recipe)]);
   }
 
-  static encodeRecipe(recipe: Recipe):string {
+  static encodeRecipe(recipe: Recipe): string {
     return btoa(JSON.stringify(recipe));
   }
 
@@ -121,41 +108,37 @@ export class RecipeComponent implements OnInit {
     return JSON.parse(atob(encodedRecipe));
   }
 
-  /** Default recipe */
   static get defaultRecipe(): Recipe {
-    var baseIngredient: MeasuredRecipeIngredient = {
-        name: "Rittenhouse Rye whiskey",
-        description: "50% ABV",
-        measure: 120,
-        unitOfMeasure: "ml"
+    const baseIngredient: RecipeIngredient = {
+      name: 'Rittenhouse Rye whiskey',
+      description: '50% ABV',
+      measure: 120,
+      unitOfMeasure: 'ml'
     };
-    var additionalIngredients = [];
-    additionalIngredients.push({
-        name: "Carpano Antica Formula vermouth",
-        description: "16.5% ABV",
-        measure: 53,
-        unitOfMeasure: "ml"
-    });
-    additionalIngredients.push({
-        name: "Angostura bitters",
-        measure: 4,
-        unitOfMeasure: "dashes"
-    });
-    additionalIngredients.push({
-        name: "Brandied cherries or orange twists",
-        measure: 2,
-        unitOfMeasure: ""
-    });
 
-    var defaultRecipe: Recipe = {
-      name: "Manhattans for two",
-      description: "<p>Shake with ice and serve in a chilled coupe glass.</p><p>From Liquid Intelligence by Dave Arnold</p>",
-      baseIngredient: baseIngredient,
-      additionalIngredients: additionalIngredients,
+    return {
+      name: 'Manhattans for two',
+      description: '<p>Shake with ice and serve in a chilled coupe glass.</p><p>From Liquid Intelligence by Dave Arnold</p>',
+      baseIngredient,
+      additionalIngredients: [
+        {
+          name: 'Carpano Antica Formula vermouth',
+          description: '16.5% ABV',
+          measure: 53,
+          unitOfMeasure: 'ml'
+        },
+        {
+          name: 'Angostura bitters',
+          measure: 4,
+          unitOfMeasure: 'dashes'
+        },
+        {
+          name: 'Brandied cherries or orange twists',
+          measure: 2,
+          unitOfMeasure: ''
+        }
+      ],
       numberOfServes: 2
     };
-    return defaultRecipe;
   }
 }
-
-
