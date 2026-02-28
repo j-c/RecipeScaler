@@ -18,19 +18,17 @@ export class RecipeViewModel {
 
   description?: string;
 
-  recipeNumberOfServes: number;
+  recipeNumberOfServes = 0;
 
-  desiredNumberOfServes: number;
+  desiredNumberOfServes = 0;
 
-  ingredients: RecipeIngredientViewModel[];
+  ingredients: RecipeIngredientViewModel[] = [];
 
   constructor(recipe: Recipe) {
     this.name = recipe.name;
     this.description = recipe.description;
     this.recipeNumberOfServes = recipe.numberOfServes || 0;
     this.desiredNumberOfServes = this.recipeNumberOfServes;
-
-    this.ingredients = [];
 
     if (!recipe.baseIngredient) {
       throw new Error('No base ingredient specified');
