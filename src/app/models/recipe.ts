@@ -1,20 +1,19 @@
-import { IRecipeIngredient } from './irecipe-ingredient';
-import { MeasuredRecipeIngredient } from './measured-recipe-ingredient';
+import { RecipeIngredient } from './measured-recipe-ingredient';
 
-export class Recipe {
-    /** Name of recipe */
-    name: string;
-    
-    /** Recipe description (optional) */
-    description?: string;
+export interface Recipe {
+  /** Name of recipe */
+  name: string;
 
-    /** Number of serves recipe yeilds (optional) */
-    numberOfServes?: number
+  /** Recipe description (optional) */
+  description?: string;
 
-    /** Base ingredient to scale all others against. Must be defined by measure. */
-    baseIngredient: MeasuredRecipeIngredient;
+  /** Number of serves recipe yields (optional) */
+  numberOfServes?: number;
 
-    /** All other ingredients used by the recipe */
-    additionalIngredients: IRecipeIngredient[];
+  /** Base ingredient to scale all others against */
+  baseIngredient: RecipeIngredient;
+
+  /** All other ingredients used by the recipe */
+  additionalIngredients: RecipeIngredient[];
 }
 

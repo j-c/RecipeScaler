@@ -1,9 +1,9 @@
-<div *ngIf="recipeViewModel">
+@if (recipeViewModel) {
   <h1>{{ recipeViewModel.name }}</h1>
 
   <div class="panel panel-default">
     <div class="panel-body">
-      
+
       <h4>Ingredients</h4>
       <table class="table">
         <colgroup>
@@ -21,65 +21,72 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let ingredient of recipeViewModel.ingredients; let index = index">
-            <td>
-              <div class="input-group">
-                <input
-                  id="{{ recipeViewModel.nameId }}-ingredient-{{ index }}"
-                  type="number"
-                  class="form-control"
-                  [(ngModel)]="ingredient.scaledMeasure"
-                  (ngModelChange)="updateScaledValues(ingredient)"
-                  min="0"
-                  />
-                <span class="input-group-addon" *ngIf="ingredient.unitOfMeasure && ingredient.unitOfMeasure.length > 0">{{ ingredient.unitOfMeasure }}</span>
-              </div>
-            </td>
-            <td>
-              <div class="ingredient-list-item">
-                {{ ingredient.scaling | percent }}
-              </div>
-            </td>
-            <td>
-              <div class="ingredient-list-item">
-                {{ ingredient.measure }} {{ ingredient.unitOfMeasure }}
-              </div>
-            </td>
-            <td>
-              <div class="ingredient-list-item">
-                <div>{{ ingredient.name }}</div>
-                <div class="ingredient-description">{{ ingredient.description }}</div>
-              </div>
-            </td>
-          </tr>
-          <tr *ngIf="recipeViewModel.recipeNumberOfServes > 0">
-            <td>
-              <div class="input-group">
-                <input
-                  type="number"
-                  class="form-control"
-                  [(ngModel)]="recipeViewModel.desiredNumberOfServes"
-                  (ngModelChange)="updateServes(recipeViewModel.desiredNumberOfServes)"
-                  min="0"
-                  />  
-                <span class="input-group-addon">serves</span>
-              </div>
-            </td>
-            <td></td>
-            <td>
-              <div class="ingredient-list-item">
-                {{ recipeViewModel.recipeNumberOfServes }} serves
-              </div>
-            </td>
-            <td></td>
+          @for (ingredient of recipeViewModel.ingredients; track ingredient.name; let index = $index) {
+            <tr>
+              <td>
+                <div class="input-group">
+                  <input
+                    id="{{ recipeViewModel.nameId }}-ingredient-{{ index }}"
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="ingredient.scaledMeasure"
+                    (ngModelChange)="updateScaledValues(ingredient)"
+                    min="0"
+                    />
+                  @if (ingredient.unitOfMeasure && ingredient.unitOfMeasure.length > 0) {
+                    <span class="input-group-addon">{{ ingredient.unitOfMeasure }}</span>
+                  }
+                </div>
+              </td>
+              <td>
+                <div class="ingredient-list-item">
+                  {{ ingredient.scaling | percent }}
+                </div>
+              </td>
+              <td>
+                <div class="ingredient-list-item">
+                  {{ ingredient.measure }} {{ ingredient.unitOfMeasure }}
+                </div>
+              </td>
+              <td>
+                <div class="ingredient-list-item">
+                  <div>{{ ingredient.name }}</div>
+                  <div class="ingredient-description">{{ ingredient.description }}</div>
+                </div>
+              </td>
+            </tr>
+          }
+          @if (recipeViewModel.recipeNumberOfServes > 0) {
+            <tr>
+              <td>
+                <div class="input-group">
+                  <input
+                    type="number"
+                    class="form-control"
+                    [(ngModel)]="recipeViewModel.desiredNumberOfServes"
+                    (ngModelChange)="updateServes(recipeViewModel.desiredNumberOfServes)"
+                    min="0"
+                    />
+                  <span class="input-group-addon">serves</span>
+                </div>
+              </td>
+              <td></td>
+              <td>
+                <div class="ingredient-list-item">
+                  {{ recipeViewModel.recipeNumberOfServes }} serves
+                </div>
+              </td>
+              <td></td>
+            </tr>
+          }
         </tbody>
       </table>
 
-      <div [hidden]="!recipeViewModel.description || recipeViewModel.description.length == 0">
+      @if (recipeViewModel.description) {
         <hr />
         <h4>Description</h4>
         <div [innerHTML]="recipeViewModel.description"></div>
-      </div>
+      }
     </div>
 
     <div class="panel-footer">
@@ -87,42 +94,35 @@
         <div class="pull-left">
           <div class="input-group">
             <div class="input-group-addon">
-              <span class="glyphicon glyphicon-link" title="Url to this recipe"></span>
+              <span class="glyphicon glyphicon-link" title="URL to this recipe"></span>
             </div>
             <input
               class="form-control"
               type="text"
-              [ngModel]="generateUrlForRecipe(recipe)"
+              [ngModel]="getRecipeUrl()"
               onfocus="this.select();"
               readonly />
           </div>
         </div>
 
         <div class="pull-right">
-          <button class="btn btn-primary" (click)="editRecipe(recipe)" *ngIf="!editMode">
+          @if (!editMode) {
+            <button class="btn btn-primary" (click)="editRecipe()">
               <span class="glyphicon glyphicon-pencil"></span> Edit recipe
-          </button>
-          
-          <button class="btn btn-success" (click)="saveRecipe()" *ngIf="editMode">
+            </button>
+          }
+          @if (editMode) {
+            <button class="btn btn-success" (click)="saveRecipe()">
               <span class="glyphicon glyphicon-ok"></span> Done
-          </button>
+            </button>
+          }
         </div>
       </div>
       <div class="clearfix"></div>
-      <textarea *ngIf="editMode" class="form-control" (blur)="recipeJson = $event.target.value" rows="20">{{ recipe | json }}</textarea>
+      @if (editMode) {
+        <textarea class="form-control" (blur)="recipeJson = $any($event.target).value" rows="20">{{ recipe | json }}</textarea>
+      }
     </div>
   </div>
-
-  <div style="width: 200px">
-    <share-buttons
-      [url]="generateUrlForRecipe(recipe)"
-      [twitter]="false"
-      [pinterest]="false"
-      [linkedIn]="false"
-      [tumblr]="false"
-      [reddit]="false"
-      [stumbleUpOn]="false"
-    ></share-buttons>
-  </div>
-</div>
+}
 
