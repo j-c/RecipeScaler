@@ -195,7 +195,7 @@ export class RecipeComponent implements OnInit {
 
     const defaultRecipe: Recipe = {
       name: 'Manhattans for two',
-      description: '<p>Shake with ice and serve in a chilled coupe glass.</p><p>From Liquid Intelligence by Dave Arnold</p>',
+      description: '<p>Stir with ice and serve in a chilled coupe glass.</p><p>From Liquid Intelligence by Dave Arnold</p>',
       baseIngredient,
       additionalIngredients,
       numberOfServes: 2,
