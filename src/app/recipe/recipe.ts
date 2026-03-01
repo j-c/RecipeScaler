@@ -1,7 +1,7 @@
 import { CommonModule, PercentPipe } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SecurityContext } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Title } from '@angular/platform-browser';
+import { DomSanitizer, Title } from '@angular/platform-browser';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -37,9 +37,11 @@ export class RecipeComponent implements OnInit {
   set recipe(recipe: Recipe) {
     this._recipe = recipe;
     this.recipeViewModel = new RecipeViewModel(recipe);
+    this.sanitizedRecipeDescription = this.sanitizer.sanitize(SecurityContext.HTML, this.recipeViewModel.description || '') || '';
   }
 
   recipeViewModel!: RecipeViewModel;
+  sanitizedRecipeDescription = '';
   routeLoadErrorMessage = '';
   recipeJson = '';
   editMode = false;
@@ -48,6 +50,7 @@ export class RecipeComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private title: Title,
+    private sanitizer: DomSanitizer,
   ) {}
 
   ngOnInit(): void {
@@ -86,6 +89,10 @@ export class RecipeComponent implements OnInit {
 
   generateUrlForRecipe(_recipe: Recipe): string {
     return `${window.location.origin}/r/${RecipeComponent.encodeRecipe(_recipe)}`;
+  }
+
+  selectRecipeUrl(input: HTMLInputElement): void {
+    input.select();
   }
 
   dismissRouteLoadError(): void {

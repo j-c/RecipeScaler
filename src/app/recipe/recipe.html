@@ -69,17 +69,18 @@
       <div [hidden]="!recipeViewModel.description || recipeViewModel.description.length == 0">
         <hr />
         <h4>Description</h4>
-        <div [innerHTML]="recipeViewModel.description"></div>
+        <div [innerHTML]="sanitizedRecipeDescription"></div>
       </div>
     </mat-card-content>
 
     <mat-card-actions>
       <mat-form-field>
         <input
+          #shareUrlInput
           matInput
           type="text"
           [ngModel]="generateUrlForRecipe(recipe)"
-          onfocus="this.select();"
+          (focus)="selectRecipeUrl(shareUrlInput)"
           readonly
         />
       </mat-form-field>
