@@ -40,6 +40,7 @@ export class RecipeComponent implements OnInit {
   }
 
   recipeViewModel!: RecipeViewModel;
+  routeLoadErrorMessage = '';
   recipeJson = '';
   editMode = false;
 
@@ -51,18 +52,26 @@ export class RecipeComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
-      try {
-        const base64Recipe = params['base64recipe'] as string;
-        if (base64Recipe && base64Recipe.length > 0) {
-          const parsedRecipe = RecipeComponent.decodeRecipe(base64Recipe);
-          this.recipe = parsedRecipe;
-          this.title.setTitle(`${this.recipe.name} - Recipe Scaler`);
-        }
-      } catch {
+      const base64Recipe = params['base64recipe'] as string | undefined;
+
+      // No payload in the route: use the default recipe URL.
+      if (!base64Recipe || base64Recipe.length === 0) {
+        this.routeLoadErrorMessage = '';
+        this.navigateToRecipe(RecipeComponent.defaultRecipe);
+        return;
       }
 
-      if (!this.recipe) {
-        this.navigateToRecipe(RecipeComponent.defaultRecipe);
+      try {
+        const parsedRecipe = RecipeComponent.decodeRecipe(base64Recipe);
+        this.recipe = parsedRecipe;
+        this.routeLoadErrorMessage = '';
+        this.title.setTitle(`${this.recipe.name} - Recipe Scaler`);
+      } catch (error) {
+        // Payload is present but invalid/corrupt: recover with default and show a user-facing note.
+        console.warn('Could not decode recipe URL payload. Loading default recipe.', error);
+        this.routeLoadErrorMessage = 'Could not read this recipe link. Loaded the default recipe instead.';
+        this.recipe = RecipeComponent.defaultRecipe;
+        this.title.setTitle(`${this.recipe.name} - Recipe Scaler`);
       }
     });
   }
@@ -90,6 +99,10 @@ export class RecipeComponent implements OnInit {
 
   generateUrlForRecipe(_recipe: Recipe): string {
     return `${window.location.origin}/r/${RecipeComponent.encodeRecipe(_recipe)}`;
+  }
+
+  dismissRouteLoadError(): void {
+    this.routeLoadErrorMessage = '';
   }
 
   editRecipe(_recipe: Recipe): void {

@@ -3,6 +3,11 @@
 
   <mat-card>
     <mat-card-content>
+      <p *ngIf="routeLoadErrorMessage.length > 0">
+        <strong>Error:</strong> {{ routeLoadErrorMessage }}
+        <button mat-button type="button" (click)="dismissRouteLoadError()">Dismiss</button>
+      </p>
+
       <h4>Ingredients</h4>
       <table>
         <colgroup>

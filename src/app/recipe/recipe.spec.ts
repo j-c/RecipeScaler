@@ -43,7 +43,7 @@ describe('RecipeComponent', () => {
     const component = fixture.componentInstance;
     fixture.detectChanges();
 
-    return { component, navigateCalls, titleCalls };
+    return { component, fixture, navigateCalls, titleCalls };
   }
 
   it('should create', async () => {
@@ -67,8 +67,26 @@ describe('RecipeComponent', () => {
   });
 
   it('should navigate to default recipe when route param is invalid base64', async () => {
-    const { navigateCalls } = await setup({ base64recipe: '***invalid***' });
-    expect(navigateCalls.length).toBe(1);
+    const { component, fixture, navigateCalls, titleCalls } = await setup({ base64recipe: '***invalid***' });
+    fixture.detectChanges();
+
+    expect(navigateCalls.length).toBe(0);
+    expect(component.recipeViewModel.name).toBe('Manhattans for two');
+    expect(component.routeLoadErrorMessage).toContain('Could not read this recipe link');
+    expect(titleCalls.at(-1)).toContain('Manhattans for two - Recipe Scaler');
+    expect(fixture.nativeElement.textContent).toContain('Could not read this recipe link');
+  });
+
+  it('should dismiss route load error message', async () => {
+    const { component, fixture } = await setup({ base64recipe: '***invalid***' });
+    fixture.detectChanges();
+
+    const dismissButton = fixture.nativeElement.querySelector('button[mat-button]') as HTMLButtonElement;
+    dismissButton.click();
+    fixture.detectChanges();
+
+    expect(component.routeLoadErrorMessage).toBe('');
+    expect(fixture.nativeElement.textContent).not.toContain('Could not read this recipe link');
   });
 
   it('should update scaled ingredient values and serves value', async () => {
