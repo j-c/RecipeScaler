@@ -135,6 +135,26 @@ describe('RecipeComponent', () => {
     expect(decoded.additionalIngredients.length).toBe(3);
   });
 
+  it('should encode recipe payload as URL-safe base64', () => {
+    const encoded = RecipeComponent.encodeRecipe(RecipeComponent.defaultRecipe);
+    expect(encoded).not.toContain('+');
+    expect(encoded).not.toContain('/');
+    expect(encoded).not.toContain('=');
+  });
+
+  it('should decode legacy base64 payloads for backward compatibility', () => {
+    const legacyEncoded = btoa(JSON.stringify(RecipeComponent.defaultRecipe));
+    const decoded = RecipeComponent.decodeRecipe(legacyEncoded);
+    expect(decoded.name).toBe('Manhattans for two');
+  });
+
+  it('should decode URI-encoded payload strings', () => {
+    const encoded = RecipeComponent.encodeRecipe(RecipeComponent.defaultRecipe);
+    const uriEncoded = encodeURIComponent(encoded);
+    const decoded = RecipeComponent.decodeRecipe(uriEncoded);
+    expect(decoded.name).toBe('Manhattans for two');
+  });
+
   it('should generate URL for current location', async () => {
     const { component } = await setup();
     const url = component.generateUrlForRecipe(component.recipe);

@@ -89,7 +89,7 @@ export class RecipeComponent implements OnInit {
   }
 
   generateUrlForRecipe(_recipe: Recipe): string {
-    return window.location.origin + window.location.pathname;
+    return `${window.location.origin}/r/${RecipeComponent.encodeRecipe(_recipe)}`;
   }
 
   editRecipe(_recipe: Recipe): void {
@@ -113,11 +113,58 @@ export class RecipeComponent implements OnInit {
   }
 
   static encodeRecipe(recipe: Recipe): string {
-    return btoa(JSON.stringify(recipe));
+    const base64 = btoa(JSON.stringify(recipe));
+    return RecipeComponent.toBase64Url(base64);
   }
 
   static decodeRecipe(encodedRecipe: string): Recipe {
-    return JSON.parse(atob(encodedRecipe));
+    const decodedPayload = RecipeComponent.decodeRecipePayload(encodedRecipe);
+    return JSON.parse(decodedPayload);
+  }
+
+  private static decodeRecipePayload(encodedRecipe: string): string {
+    if (!encodedRecipe || encodedRecipe.length === 0) {
+      throw new Error('Empty recipe payload');
+    }
+
+    const trimmedValue = encodedRecipe.trim();
+    const decodedUriValue = RecipeComponent.tryDecodeURIComponent(trimmedValue);
+    const candidates = decodedUriValue === trimmedValue ? [trimmedValue] : [decodedUriValue, trimmedValue];
+
+    for (const candidate of candidates) {
+      try {
+        return atob(RecipeComponent.fromBase64Url(candidate));
+      } catch {
+      }
+    }
+
+    throw new Error('Invalid recipe payload encoding');
+  }
+
+  private static toBase64Url(value: string): string {
+    return value.replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+  }
+
+  private static fromBase64Url(value: string): string {
+    const base64 = value.replace(/-/g, '+').replace(/_/g, '/');
+    const remainder = base64.length % 4;
+    if (remainder === 0) {
+      return base64;
+    }
+
+    if (remainder === 1) {
+      throw new Error('Invalid base64 length');
+    }
+
+    return base64.padEnd(base64.length + (4 - remainder), '=');
+  }
+
+  private static tryDecodeURIComponent(value: string): string {
+    try {
+      return decodeURIComponent(value);
+    } catch {
+      return value;
+    }
   }
 
   static get defaultRecipe(): Recipe {
