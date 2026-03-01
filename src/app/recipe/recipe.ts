@@ -77,24 +77,11 @@ export class RecipeComponent implements OnInit {
   }
 
   updateScaledValues(ingredient: RecipeIngredientViewModel): void {
-    const scaling = ingredient.scaledMeasure / ingredient.measure;
-    this.recipeViewModel.ingredients.forEach((entry) => {
-      if (entry === ingredient) {
-        return;
-      }
-      entry.scaledMeasure = scaling * entry.measure;
-    });
-
-    if (this.recipeViewModel.recipeNumberOfServes && this.recipeViewModel.recipeNumberOfServes > 0) {
-      this.recipeViewModel.desiredNumberOfServes = this.recipeViewModel.recipeNumberOfServes * scaling;
-    }
+    this.recipeViewModel.applyScalingFromIngredient(ingredient);
   }
 
   updateServes(newServes: number): void {
-    const scaling = newServes / (this.recipeViewModel.recipeNumberOfServes || 1);
-    this.recipeViewModel.ingredients.forEach((entry) => {
-      entry.scaledMeasure = scaling * entry.measure;
-    });
+    this.recipeViewModel.applyScalingFromServes(newServes);
   }
 
   generateUrlForRecipe(_recipe: Recipe): string {

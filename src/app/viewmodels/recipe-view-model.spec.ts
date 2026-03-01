@@ -63,4 +63,24 @@ describe('RecipeViewModel', () => {
       console.warn = originalWarn;
     }
   });
+
+  it('should apply scaling from a changed ingredient', () => {
+    const vm = new RecipeViewModel(validRecipe);
+    const first = vm.ingredients[0];
+    const second = vm.ingredients[1];
+
+    first.scaledMeasure = first.measure * 2;
+    vm.applyScalingFromIngredient(first);
+
+    expect(second.scaledMeasure).toBe(second.measure * 2);
+    expect(vm.desiredNumberOfServes).toBe(4);
+  });
+
+  it('should apply scaling from serves change', () => {
+    const vm = new RecipeViewModel(validRecipe);
+    vm.applyScalingFromServes(1);
+
+    expect(vm.ingredients[0].scaledMeasure).toBe(50);
+    expect(vm.ingredients[1].scaledMeasure).toBe(25);
+  });
 });

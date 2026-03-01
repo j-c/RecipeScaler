@@ -24,6 +24,27 @@ export class RecipeViewModel {
     desiredNumberOfServes?: number;
 
     ingredients: RecipeIngredientViewModel[];
+
+    applyScalingFromIngredient(ingredient: RecipeIngredientViewModel): void {
+        const scaling = ingredient.scaledMeasure / ingredient.measure;
+        this.ingredients.forEach((entry) => {
+            if (entry === ingredient) {
+                return;
+            }
+            entry.scaledMeasure = scaling * entry.measure;
+        });
+
+        if (this.recipeNumberOfServes && this.recipeNumberOfServes > 0) {
+            this.desiredNumberOfServes = this.recipeNumberOfServes * scaling;
+        }
+    }
+
+    applyScalingFromServes(newServes: number): void {
+        const scaling = newServes / (this.recipeNumberOfServes || 1);
+        this.ingredients.forEach((entry) => {
+            entry.scaledMeasure = scaling * entry.measure;
+        });
+    }
     
     constructor(recipe: Recipe) {
         this.name = recipe.name;
