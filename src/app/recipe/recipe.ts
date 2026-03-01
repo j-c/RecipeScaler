@@ -116,7 +116,8 @@ export class RecipeComponent implements OnInit {
         const newRecipe: Recipe = JSON.parse(this.recipeJson);
         this.navigateToRecipe(newRecipe);
       }
-    } catch {
+    } catch (error) {
+      console.warn('Failed to save recipe JSON.', error);
       window.alert('Error in Recipe JSON.');
     }
   }
@@ -143,15 +144,18 @@ export class RecipeComponent implements OnInit {
     const trimmedValue = encodedRecipe.trim();
     const decodedUriValue = RecipeComponent.tryDecodeURIComponent(trimmedValue);
     const candidates = decodedUriValue === trimmedValue ? [trimmedValue] : [decodedUriValue, trimmedValue];
+    const decodeErrors: string[] = [];
 
     for (const candidate of candidates) {
       try {
         return atob(RecipeComponent.fromBase64Url(candidate));
-      } catch {
+      } catch (error) {
+        const message = error instanceof Error ? error.message : String(error);
+        decodeErrors.push(message);
       }
     }
 
-    throw new Error('Invalid recipe payload encoding');
+    throw new Error(`Invalid recipe payload encoding. Attempts failed: ${decodeErrors.join(' | ')}`);
   }
 
   private static toBase64Url(value: string): string {
@@ -175,7 +179,8 @@ export class RecipeComponent implements OnInit {
   private static tryDecodeURIComponent(value: string): string {
     try {
       return decodeURIComponent(value);
-    } catch {
+    } catch (error) {
+      console.debug('Recipe payload is not URI-decoded; using raw value.', error);
       return value;
     }
   }
