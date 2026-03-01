@@ -1,5 +1,5 @@
-<div *ngIf="recipeViewModel">
-  <h1>{{ recipeViewModel.name }}</h1>
+<div *ngIf="recipeState">
+  <h1>{{ recipeState.name }}</h1>
 
   <mat-card>
     <mat-card-content>
@@ -25,11 +25,11 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let ingredient of recipeViewModel.ingredients; let index = index">
+          <tr *ngFor="let ingredient of recipeState.ingredients; let index = index">
             <td>
               <mat-form-field>
                 <input
-                  id="{{ recipeViewModel.nameId }}-ingredient-{{ index }}"
+                  id="{{ recipeState.nameId }}-ingredient-{{ index }}"
                   matInput
                   type="number"
                   [(ngModel)]="ingredient.scaledMeasure"
@@ -46,27 +46,27 @@
               <div>{{ ingredient.description }}</div>
             </td>
           </tr>
-          <tr *ngIf="(recipeViewModel.recipeNumberOfServes || 0) > 0">
+          <tr *ngIf="(recipeState.recipeNumberOfServes || 0) > 0">
             <td>
               <mat-form-field>
                 <input
                   matInput
                   type="number"
-                  [(ngModel)]="recipeViewModel.desiredNumberOfServes"
-                  (ngModelChange)="updateServes(recipeViewModel.desiredNumberOfServes || 0)"
+                  [(ngModel)]="recipeState.desiredNumberOfServes"
+                  (ngModelChange)="updateServes(recipeState.desiredNumberOfServes || 0)"
                   min="0"
                 />
               </mat-form-field>
               <span>serves</span>
             </td>
             <td></td>
-            <td>{{ recipeViewModel.recipeNumberOfServes }} serves</td>
+            <td>{{ recipeState.recipeNumberOfServes }} serves</td>
             <td></td>
           </tr>
         </tbody>
       </table>
 
-      <div [hidden]="!recipeViewModel.description || recipeViewModel.description.length == 0">
+      <div [hidden]="!recipeState.description || recipeState.description.length == 0">
         <hr />
         <h4>Description</h4>
         <div [innerHTML]="sanitizedRecipeDescription"></div>

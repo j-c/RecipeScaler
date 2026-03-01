@@ -1,14 +1,13 @@
 import { Recipe } from '../models/recipe';
-import { IRecipeIngredient } from '../models/irecipe-ingredient'
-import { RecipeIngredientViewModel } from './recipe-ingredient-view-model';
+import { RecipeIngredientState } from './recipe-ingredient-state';
 
-export class RecipeViewModel {
-    private _nameId: string;
+export class RecipeState {
+    private _nameId!: string;
     get nameId(): string {
         return this._nameId;
     };
 
-    private _name: string;
+    private _name!: string;
     get name(): string {
         return this._name;
     };
@@ -23,9 +22,9 @@ export class RecipeViewModel {
 
     desiredNumberOfServes?: number;
 
-    ingredients: RecipeIngredientViewModel[];
+    ingredients: RecipeIngredientState[];
 
-    applyScalingFromIngredient(ingredient: RecipeIngredientViewModel): void {
+    applyScalingFromIngredient(ingredient: RecipeIngredientState): void {
         const scaling = ingredient.scaledMeasure / ingredient.measure;
         this.ingredients.forEach((entry) => {
             if (entry === ingredient) {
@@ -60,14 +59,14 @@ export class RecipeViewModel {
         } else if (recipe.baseIngredient.measure <= 0) {
             throw new Error("Base ingredient measure needs to be greater than 0");
         } else {
-            this.ingredients.push(new RecipeIngredientViewModel(recipe.baseIngredient));
+            this.ingredients.push(new RecipeIngredientState(recipe.baseIngredient));
         }
 
         // Add additional ingredients
         if (Array.isArray(recipe.additionalIngredients) && recipe.additionalIngredients.length > 0) {
             let ingredientArray = this.ingredients;
             recipe.additionalIngredients.forEach((e, i) => {
-                ingredientArray.push(new RecipeIngredientViewModel(e, recipe.baseIngredient));
+                ingredientArray.push(new RecipeIngredientState(e, recipe.baseIngredient));
             });
         } else {
             console.warn("Recipe only contains base ingredient");

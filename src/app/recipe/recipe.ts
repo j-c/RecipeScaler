@@ -10,8 +10,8 @@ import { MatInputModule } from '@angular/material/input';
 
 import { Recipe } from '../models/recipe';
 import { MeasuredRecipeIngredient } from '../models/measured-recipe-ingredient';
-import { RecipeViewModel } from '../viewmodels/recipe-view-model';
-import { RecipeIngredientViewModel } from '../viewmodels/recipe-ingredient-view-model';
+import { RecipeState } from '../viewmodels/recipe-state';
+import { RecipeIngredientState } from '../viewmodels/recipe-ingredient-state';
 
 @Component({
   selector: 'app-recipe',
@@ -36,11 +36,11 @@ export class RecipeComponent implements OnInit {
 
   set recipe(recipe: Recipe) {
     this._recipe = recipe;
-    this.recipeViewModel = new RecipeViewModel(recipe);
-    this.sanitizedRecipeDescription = this.sanitizer.sanitize(SecurityContext.HTML, this.recipeViewModel.description || '') || '';
+    this.recipeState = new RecipeState(recipe);
+    this.sanitizedRecipeDescription = this.sanitizer.sanitize(SecurityContext.HTML, this.recipeState.description || '') || '';
   }
 
-  recipeViewModel!: RecipeViewModel;
+  recipeState!: RecipeState;
   sanitizedRecipeDescription = '';
   routeLoadErrorMessage = '';
   recipeJson = '';
@@ -79,12 +79,12 @@ export class RecipeComponent implements OnInit {
     });
   }
 
-  updateScaledValues(ingredient: RecipeIngredientViewModel): void {
-    this.recipeViewModel.applyScalingFromIngredient(ingredient);
+  updateScaledValues(ingredient: RecipeIngredientState): void {
+    this.recipeState.applyScalingFromIngredient(ingredient);
   }
 
   updateServes(newServes: number): void {
-    this.recipeViewModel.applyScalingFromServes(newServes);
+    this.recipeState.applyScalingFromServes(newServes);
   }
 
   generateUrlForRecipe(_recipe: Recipe): string {

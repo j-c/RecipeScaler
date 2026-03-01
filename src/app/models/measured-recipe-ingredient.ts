@@ -1,7 +1,7 @@
-import { AbstractRecipeIngredient } from './abstract-recipe-ingredient';
+import { BaseRecipeIngredient } from './base-recipe-ingredient';
 
 /** Recipe ingredient that is defined by measurements */
-export class MeasuredRecipeIngredient extends AbstractRecipeIngredient {
+export interface MeasuredRecipeIngredient extends BaseRecipeIngredient {
     /** Measure of ingredient. Must be greater than 0. */
     measure: number;
 

@@ -1,8 +1,8 @@
-import { IRecipeIngredient } from '../models/irecipe-ingredient';
+import { RecipeIngredient } from '../models/recipe-ingredient';
 import { MeasuredRecipeIngredient } from '../models/measured-recipe-ingredient';
 import { ScaledRecipeIngredient } from '../models/scaled-recipe-ingredient';
 
-export class RecipeIngredientViewModel {
+export class RecipeIngredientState {
     name: string;
     description?: string;
 
@@ -17,7 +17,7 @@ export class RecipeIngredientViewModel {
     private baseIngredientMeasure?: number;
     private isBaseIngredient?: boolean;
 
-    constructor (recipeIngredient: IRecipeIngredient, baseIngredient?: MeasuredRecipeIngredient) {
+    constructor (recipeIngredient: RecipeIngredient, baseIngredient?: MeasuredRecipeIngredient) {
         this.name = recipeIngredient.name;
         this.description = recipeIngredient.description;
         

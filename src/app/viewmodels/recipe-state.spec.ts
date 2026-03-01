@@ -1,7 +1,7 @@
 import { Recipe } from '../models/recipe';
-import { RecipeViewModel } from './recipe-view-model';
+import { RecipeState } from './recipe-state';
 
-describe('RecipeViewModel', () => {
+describe('RecipeState', () => {
   const validRecipe: Recipe = {
     name: 'Test Recipe',
     description: 'desc',
@@ -21,7 +21,7 @@ describe('RecipeViewModel', () => {
   };
 
   it('should build nameId and ingredients for a valid recipe', () => {
-    const vm = new RecipeViewModel(validRecipe);
+    const vm = new RecipeState(validRecipe);
     expect(vm.name).toBe('Test Recipe');
     expect(vm.nameId).toBe('testrecipe');
     expect(vm.ingredients.length).toBe(2);
@@ -31,7 +31,7 @@ describe('RecipeViewModel', () => {
 
   it('should throw if base ingredient is missing', () => {
     const invalid = { ...validRecipe, baseIngredient: undefined } as unknown as Recipe;
-    expect(() => new RecipeViewModel(invalid)).toThrow();
+    expect(() => new RecipeState(invalid)).toThrow();
   });
 
   it('should throw if base ingredient measure is not greater than zero', () => {
@@ -42,7 +42,7 @@ describe('RecipeViewModel', () => {
         measure: 0,
       },
     };
-    expect(() => new RecipeViewModel(invalid)).toThrow();
+    expect(() => new RecipeState(invalid)).toThrow();
   });
 
   it('should warn when there are no additional ingredients', () => {
@@ -53,7 +53,7 @@ describe('RecipeViewModel', () => {
     };
 
     try {
-      const vm = new RecipeViewModel({
+      const vm = new RecipeState({
         ...validRecipe,
         additionalIngredients: [],
       });
@@ -65,7 +65,7 @@ describe('RecipeViewModel', () => {
   });
 
   it('should apply scaling from a changed ingredient', () => {
-    const vm = new RecipeViewModel(validRecipe);
+    const vm = new RecipeState(validRecipe);
     const first = vm.ingredients[0];
     const second = vm.ingredients[1];
 
@@ -77,7 +77,7 @@ describe('RecipeViewModel', () => {
   });
 
   it('should apply scaling from serves change', () => {
-    const vm = new RecipeViewModel(validRecipe);
+    const vm = new RecipeState(validRecipe);
     vm.applyScalingFromServes(1);
 
     expect(vm.ingredients[0].scaledMeasure).toBe(50);

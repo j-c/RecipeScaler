@@ -1,7 +1,7 @@
-import { IRecipeIngredient } from './irecipe-ingredient';
+import { RecipeIngredient } from './recipe-ingredient';
 import { MeasuredRecipeIngredient } from './measured-recipe-ingredient';
 
-export class Recipe {
+export interface Recipe {
     /** Name of recipe */
     name: string;
     
@@ -15,6 +15,6 @@ export class Recipe {
     baseIngredient: MeasuredRecipeIngredient;
 
     /** All other ingredients used by the recipe */
-    additionalIngredients: IRecipeIngredient[];
+    additionalIngredients: RecipeIngredient[];
 }
 

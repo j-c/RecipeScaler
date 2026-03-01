@@ -53,7 +53,7 @@ describe('RecipeComponent', () => {
 
   it('should parse recipe from route', async () => {
     const { component, titleCalls } = await setup();
-    expect(component.recipeViewModel.name).toBe('Manhattans for two');
+    expect(component.recipeState.name).toBe('Manhattans for two');
     expect(titleCalls.at(-1)).toContain('Manhattans for two - Recipe Scaler');
   });
 
@@ -71,7 +71,7 @@ describe('RecipeComponent', () => {
     fixture.detectChanges();
 
     expect(navigateCalls.length).toBe(0);
-    expect(component.recipeViewModel.name).toBe('Manhattans for two');
+    expect(component.recipeState.name).toBe('Manhattans for two');
     expect(component.routeLoadErrorMessage).toContain('Could not read this recipe link');
     expect(titleCalls.at(-1)).toContain('Manhattans for two - Recipe Scaler');
     expect(fixture.nativeElement.textContent).toContain('Could not read this recipe link');
@@ -91,21 +91,21 @@ describe('RecipeComponent', () => {
 
   it('should update scaled ingredient values and serves value', async () => {
     const { component } = await setup();
-    const first = component.recipeViewModel.ingredients[0];
-    const second = component.recipeViewModel.ingredients[1];
+    const first = component.recipeState.ingredients[0];
+    const second = component.recipeState.ingredients[1];
 
     first.scaledMeasure = first.measure * 2;
     component.updateScaledValues(first);
 
     expect(second.scaledMeasure).toBe(second.measure * 2);
-    expect(component.recipeViewModel.desiredNumberOfServes).toBe(4);
+    expect(component.recipeState.desiredNumberOfServes).toBe(4);
   });
 
   it('should scale all ingredients when serves changes', async () => {
     const { component } = await setup();
     component.updateServes(1);
-    expect(component.recipeViewModel.ingredients[0].scaledMeasure).toBe(60);
-    expect(component.recipeViewModel.ingredients[1].scaledMeasure).toBe(26.5);
+    expect(component.recipeState.ingredients[0].scaledMeasure).toBe(60);
+    expect(component.recipeState.ingredients[1].scaledMeasure).toBe(26.5);
   });
 
   it('should enter edit mode and save valid recipe json', async () => {

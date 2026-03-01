@@ -1,4 +1,4 @@
-export interface IRecipeIngredient {
+export interface RecipeIngredient {
     name: string;
     description?: string;
 }
