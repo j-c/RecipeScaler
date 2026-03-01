@@ -35,9 +35,9 @@ export class RecipeViewModel {
 
         // Add base ingredients
         if (!recipe.baseIngredient) {
-            throw "No base ingredient specified";
+            throw new Error("No base ingredient specified");
         } else if (recipe.baseIngredient.measure <= 0) {
-            throw "Base ingredient measure needs to be greater than 0";
+            throw new Error("Base ingredient measure needs to be greater than 0");
         } else {
             this.ingredients.push(new RecipeIngredientViewModel(recipe.baseIngredient));
         }
